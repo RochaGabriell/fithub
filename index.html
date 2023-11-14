@@ -1,13 +1,41 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" id="favicon" href="/Logo - Light.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitHub</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <script>
+    // Detecta o tema do navegador
+    function detectTheme() {
+      return (
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      )
+    }
+
+    // Altera o favicon de acordo com o tema
+    function toggleFavicon() {
+      var favicon = document.getElementById('favicon')
+      var temaEscuro = detectTheme()
+      favicon.href = temaEscuro ? '/Logo - Light.svg' : '/Logo - Dark.svg'
+    }
+
+    toggleFavicon()
+
+    // Escuta a mudança de tema do navegador
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', function () {
+        toggleFavicon()
+      })
+  </script>
+</body>
+
 </html>
