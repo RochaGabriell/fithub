@@ -5,7 +5,7 @@ import Login from '../pages/Auth/Login'
 import Register from '../pages/Auth/Register'
 import Home from '../pages/Home'
 import Workouts from '../pages/Workouts'
-import SearchWorkouts from '../pages/SearchWorkouts'
+import Exercises from '../pages/Exercises'
 import Tools from '../pages/Tools'
 import ChatBot from '../pages/ChatBot'
 import Profile from '../pages/Account/Profile'
@@ -35,8 +35,8 @@ const routes = createBrowserRouter([
         element: <Workouts />
       },
       {
-        path: '/search-workouts',
-        element: <SearchWorkouts />
+        path: '/exercises',
+        element: <Exercises />
       },
       {
         path: '/tools',

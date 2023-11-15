@@ -29,6 +29,7 @@ const GlobalStyle = createGlobalStyle`
     --tertiary: #D9D9D9;
     --quaternary: #ACB1C6;
     --btn-selected: #195BDA;
+    --btn-red: #E8265E;
   }
 `
 
