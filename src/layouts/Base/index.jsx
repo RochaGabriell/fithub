@@ -5,6 +5,7 @@ import Header from '../../components/Header'
 import Sidebar from '../../components/Sidebar'
 
 import { Wrapper, WrapperContainer, Container } from './styles'
+import FlowiseChat from '../../components/FlowiseChat'
 
 const Base = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -22,6 +23,7 @@ const Base = () => {
           <Outlet />
         </Container>
       </WrapperContainer>
+      <FlowiseChat />
     </Wrapper>
   )
 }
