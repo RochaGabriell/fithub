@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   padding: 6px 14px;
   z-index: 99;
   transition: all 0.5s ease;
+  border-right: 1px solid var(--quaternary);
 `
 
 const LogoDetails = styled.div`
@@ -35,8 +36,7 @@ const Icon = styled.img`
 `
 
 const LogoName = styled.div`
-  color: #fff;
-  font-size: 20px;
+  color: var(--tertiary);  font-size: 20px;
   font-weight: 600;
   opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
   transition: all 0.5s ease;

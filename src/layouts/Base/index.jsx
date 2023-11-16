@@ -17,7 +17,7 @@ const Base = () => {
     <Wrapper>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <WrapperContainer isOpen={isSidebarOpen}>
-        <Header />
+        <Header isOpen={isSidebarOpen} />
         <Container>
           <Outlet />
         </Container>
