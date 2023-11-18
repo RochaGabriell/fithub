@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
   :root {
     --primary: #000000;
     --secondary: #1E1E1E;
-    --tertiary: #D9D9D9;
+    --tertiary: #B7B7B7;
     --quaternary: #ACB1C6;
     --btn-selected: #195BDA;
     --btn-red: #E8265E;

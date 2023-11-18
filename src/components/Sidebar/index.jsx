@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import {
   Wrapper,
@@ -17,7 +18,6 @@ import {
 
 import Logo from '../../assets/Logo - Light.svg'
 import Calculator from '../../assets/NavBar/Calculator.svg'
-import ChatBot from '../../assets/NavBar/ChatBot.svg'
 import HomeIcon from '../../assets/NavBar/Home.svg'
 import Login from '../../assets/NavBar/Login.svg'
 import Muscle from '../../assets/NavBar/Muscle.svg'
@@ -48,11 +48,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       link: '/tools'
     },
     {
-      name: 'ChatBot',
-      icon: ChatBot,
-      link: '/chatbot'
-    },
-    {
       name: 'Sobre',
       icon: About,
       link: '/about'
@@ -73,39 +68,39 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   ]
 
   return (
-    <Wrapper isOpen={isOpen}>
+    <Wrapper $isOpen={isOpen}>
       <LogoDetails>
-        <Icon src={Logo} alt="logo" isOpen={isOpen} />
-        <LogoName isOpen={isOpen}>FitHub</LogoName>
+        <Icon src={Logo} alt="logo" $isOpen={isOpen} />
+        <LogoName $isOpen={isOpen}>FitHub</LogoName>
         <HamBurgerMenu
           className="bx bx-menu"
           onClick={toggleSidebar}
-          isOpen={isOpen}
+          $isOpen={isOpen}
         />
       </LogoDetails>
       <WrapperNav>
         <NavList>
           {navItems.map((item, index) => (
             <li key={index}>
-              <a href={item.link}>
+              <Link to={item.link}>
                 <img src={item.icon} alt="home" />
-                <LinkName isOpen={isOpen}>{item.name}</LinkName>
-              </a>
-              <ToolTip isOpen={isOpen}>{item.name}</ToolTip>
+                <LinkName $isOpen={isOpen}>{item.name}</LinkName>
+              </Link>
+              <ToolTip $isOpen={isOpen}>{item.name}</ToolTip>
             </li>
           ))}
         </NavList>
         <NavList>
           {navItemsAuth.map((item, index) => (
             <li key={index}>
-              <a href={item.link}>
+              <Link to={item.link}>
                 <img src={item.icon} alt="home" />
-                <LinkName isOpen={isOpen}>{item.name}</LinkName>
-              </a>
-              <ToolTip isOpen={isOpen}>{item.name}</ToolTip>
+                <LinkName $isOpen={isOpen}>{item.name}</LinkName>
+              </Link>
+              <ToolTip $isOpen={isOpen}>{item.name}</ToolTip>
             </li>
           ))}
-          {/* <Profile isOpen={isOpen}>
+          {/* <Profile $isOpen={isOpen}>
             <ProfileDetails>
               <img
                 src="https://avatars.githubusercontent.com/u/53454609?v=4"
@@ -116,7 +111,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 <div className="ruler">Web designer</div>
               </div>
             </ProfileDetails>
-            <Logout className="bx bx-log-out" isOpen={isOpen} />
+            <Logout className="bx bx-log-out" $isOpen={isOpen} />
           </Profile> */}
         </NavList>
       </WrapperNav>

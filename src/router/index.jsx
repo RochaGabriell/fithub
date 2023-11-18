@@ -7,7 +7,6 @@ import Home from '../pages/Home'
 import Workouts from '../pages/Workouts'
 import Exercises from '../pages/Exercises'
 import Tools from '../pages/Tools'
-import ChatBot from '../pages/ChatBot'
 import Profile from '../pages/Account/Profile'
 import Measurements from '../pages/Account/Measurements'
 import About from '../pages/About'
@@ -41,10 +40,6 @@ const routes = createBrowserRouter([
       {
         path: '/tools',
         element: <Tools />
-      },
-      {
-        path: '/chatbot',
-        element: <ChatBot />
       },
       {
         path: '/profile',

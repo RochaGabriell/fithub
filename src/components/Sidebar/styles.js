@@ -6,11 +6,15 @@ const Wrapper = styled.div`
   top: 0;
   height: 100%;
   background: var(--secondary);
-  width: ${({ isOpen }) => (isOpen ? '250px' : '78px')};
+  width: ${props => (props.$isOpen ? '250px' : '78px')};
   padding: 6px 14px;
   z-index: 99;
   transition: all 0.5s ease;
   border-right: 1px solid var(--quaternary);
+
+  @media screen and (max-width: 420px) {
+    width: ${props => (props.$isOpen ? '100vw' : '78px')};
+  }
 `
 
 const LogoDetails = styled.div`
@@ -31,14 +35,15 @@ const LogoDetails = styled.div`
 `
 
 const Icon = styled.img`
-  opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
+  opacity: ${props => (props.$isOpen ? '1' : '0')};
   transition: all 0.5s ease;
 `
 
 const LogoName = styled.div`
-  color: var(--tertiary);  font-size: 20px;
+  color: var(--tertiary);
+  font-size: 20px;
   font-weight: 600;
-  opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
+  opacity: ${props => (props.$isOpen ? '1' : '0')};
   transition: all 0.5s ease;
 `
 
@@ -50,7 +55,7 @@ const HamBurgerMenu = styled.i`
   font-size: 22px;
   transition: all 0.4s ease;
   font-size: 23px;
-  text-align: ${({ isOpen }) => (isOpen ? 'right' : 'center')};
+  text-align: ${props => (props.$isOpen ? 'right' : 'center')};
   cursor: pointer;
   transition: all 0.5s ease;
 `
@@ -125,7 +130,7 @@ const ToolTip = styled.span`
   white-space: nowrap;
   pointer-events: none;
   transition: 0s;
-  display: ${({ isOpen }) => (isOpen ? 'none' : 'block')};
+  display: ${props => (props.$isOpen ? 'none' : 'block')};
 
   @media screen and (max-width: 420px) {
     display: none;
@@ -137,14 +142,14 @@ const LinkName = styled.span`
   font-size: 15px;
   font-weight: 400;
   white-space: nowrap;
-  opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
-  pointer-events: ${({ isOpen }) => (isOpen ? 'auto' : 'none')};
+  opacity: ${props => (props.$isOpen ? '1' : '0')};
+  pointer-events: ${props => (props.$isOpen ? 'auto' : 'none')};
   transition: 0.4s;
 `
 
 const Profile = styled.li`
   position: fixed;
-  height: ${({ isOpen }) => (isOpen ? '60px' : '50px')} !important;
+  height: ${props => (props.$isOpen ? '60px' : '50px')} !important;
   /* width: ${({ isOpen }) => (isOpen ? '250px' : '78px')}; */
   left: 0;
   bottom: -8px;
@@ -186,8 +191,8 @@ const Logout = styled.i`
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  background: ${({ isOpen }) => (isOpen ? 'none' : 'var(--btn-red)')};
-  width: ${({ isOpen }) => (isOpen ? '50px' : '100%')};
+  background: ${props => (props.$isOpen ? 'none' : 'var(--btn-red)')};
+  width: ${props => (props.$isOpen ? '50px' : '100%')};
   /* height: 60px; */
   line-height: 60px;
   transition: all 0.5s ease;

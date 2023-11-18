@@ -22,12 +22,12 @@ const Header = ({ isOpen }) => {
   return (
     <Wrapper>
       <WrapperLeft>
-        <LogoDetailsMod isOpen={!isOpen}>
-          <Icon src={Logo} alt="logo" isOpen={!isOpen} />
-          <LogoName isOpen={!isOpen}>FitHub</LogoName>
+        <LogoDetailsMod $isOpen={!isOpen}>
+          <Icon src={Logo} alt="logo" $isOpen={!isOpen} />
+          <LogoName $isOpen={!isOpen}>FitHub</LogoName>
         </LogoDetailsMod>
         <TextBox>
-          <h1>Bom dia</h1>
+          <h1>Bem-vindo</h1>
           <p>Gabriel Rocha</p>
         </TextBox>
       </WrapperLeft>

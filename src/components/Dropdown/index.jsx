@@ -20,7 +20,7 @@ const Dropdown = ({ options, defaultText }) => {
         <ProfileImage src={defaultText.urlProfile} alt="profile" />
       </ProfileBox>
 
-      <Dropdownwrapper state={state} onMouseLeave={() => changeState(!state)}>
+      <Dropdownwrapper $state={state} onMouseLeave={() => changeState(!state)}>
         <ul>
           {options.map((option, index) => (
             <li key={index}>{option}</li>

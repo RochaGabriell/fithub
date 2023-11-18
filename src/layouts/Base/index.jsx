@@ -23,7 +23,7 @@ const Base = () => {
           <Outlet />
         </Container>
       </WrapperContainer>
-      <FlowiseChat />
+      <FlowiseChat isOpen={isSidebarOpen} />
     </Wrapper>
   )
 }

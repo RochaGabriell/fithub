@@ -12,15 +12,24 @@ const WrapperContainer = styled.div`
   position: relative;
   min-height: 100vh;
   top: 0;
-  left: ${({ isOpen }) => (isOpen ? '250px' : '78px')};
-  width: calc(100% - ${({ isOpen }) => (isOpen ? '250px' : '78px')});
+  left: ${props => (props.$isOpen ? '250px' : '78px')};
+  width: calc(100% - ${props => (props.$isOpen ? '250px' : '78px')});
   transition: all 0.5s ease;
   z-index: 2;
 `
 
 const Container = styled.div`
-  max-width: 1200px;
+  display: flex;
+  /* max-width: 1200px; */
+  height: 100%;
   padding: 0 1rem;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    height: max-content;
+  }
 `
 
 export { Wrapper, WrapperContainer, Container }

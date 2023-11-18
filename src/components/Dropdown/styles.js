@@ -22,7 +22,7 @@ const ProfileImage = styled.img`
 `
 
 const Dropdownwrapper = styled.div`
-  display: ${({ state }) => (state ? 'block' : 'none')};
+  display: ${props => (props.$state ? 'block' : 'none')};
   width: 220px;
   position: absolute;
   background-color: var(--secondary);
