@@ -6,17 +6,17 @@ import { Outlet } from 'react-router-dom'
 const AuthContext = createContext()
 
 const AuthProvider = () => {
-  let [user, setUser] = useState(() =>
+  const [user, setUser] = useState(() =>
     localStorage.getItem('authTokens')
       ? jwtDecode(localStorage.getItem('authTokens'))
       : null
   )
-  let [authTokens, setAuthTokens] = useState(() =>
+  const [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem('authTokens')
       ? JSON.parse(localStorage.getItem('authTokens'))
       : null
   )
-  let [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
 
   const navigate = useNavigate()
 
@@ -48,8 +48,7 @@ const AuthProvider = () => {
     }
   }
 
-  const logoutUser = e => {
-    e.preventDefault()
+  const logoutUser = () => {
     localStorage.removeItem('authTokens')
     setAuthTokens(null)
     setUser(null)
@@ -66,6 +65,7 @@ const AuthProvider = () => {
     })
 
     const data = await response.json()
+
     if (response.status === 200) {
       setAuthTokens(data)
       setUser(jwtDecode(data.access))
@@ -87,7 +87,7 @@ const AuthProvider = () => {
       }
     }, REFRESH_INTERVAL)
     return () => clearInterval(interval)
-  }, [authTokens, loading])
+  }, [authTokens])
 
   const contextData = {
     user: user,
