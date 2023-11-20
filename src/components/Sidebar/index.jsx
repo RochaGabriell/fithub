@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import {
@@ -24,8 +25,10 @@ import Muscle from '../../assets/NavBar/Muscle.svg'
 import Register from '../../assets/NavBar/Register.svg'
 import Dumbbells from '../../assets/NavBar/Dumbbells.svg'
 import About from '../../assets/NavBar/About.svg'
+import { AuthContext } from '../../context/AuthContext'
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
+  const { user } = useContext(AuthContext)
   const navItems = [
     {
       name: 'Home',
@@ -91,28 +94,31 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           ))}
         </NavList>
         <NavList>
-          {navItemsAuth.map((item, index) => (
-            <li key={index}>
-              <Link to={item.link}>
-                <img src={item.icon} alt="home" />
-                <LinkName $isOpen={isOpen}>{item.name}</LinkName>
-              </Link>
-              <ToolTip $isOpen={isOpen}>{item.name}</ToolTip>
-            </li>
-          ))}
-          {/* <Profile $isOpen={isOpen}>
-            <ProfileDetails>
-              <img
-                src="https://avatars.githubusercontent.com/u/53454609?v=4"
-                alt="profileImg"
-              />
-              <div className="name_job">
-                <div className="name">Gabriel Rocha</div>
-                <div className="ruler">Web designer</div>
-              </div>
-            </ProfileDetails>
-            <Logout className="bx bx-log-out" $isOpen={isOpen} />
-          </Profile> */}
+          {!user ? (
+            navItemsAuth.map((item, index) => (
+              <li key={index}>
+                <Link to={item.link}>
+                  <img src={item.icon} alt="home" />
+                  <LinkName $isOpen={isOpen}>{item.name}</LinkName>
+                </Link>
+                <ToolTip $isOpen={isOpen}>{item.name}</ToolTip>
+              </li>
+            ))
+          ) : (
+            <Profile $isOpen={isOpen}>
+              <ProfileDetails>
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
+                  alt="profileImg"
+                />
+                <div className="name_job">
+                  <div className="name">{user ? user.username : ''}</div>
+                  {/* <div className="ruler">Web designer</div> */}
+                </div>
+              </ProfileDetails>
+              <Logout className="bx bx-log-out" $isOpen={isOpen} />
+            </Profile>
+          )}
         </NavList>
       </WrapperNav>
     </Wrapper>

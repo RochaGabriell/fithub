@@ -37,15 +37,21 @@ const Dropdownwrapper = styled.div`
     margin: 0;
   }
 
+  a {
+    text-decoration: none;
+    color: var(--quaternary);
+  }
+
   li {
     text-align: center;
     padding: 8px;
     border-radius: 8px;
+    cursor: pointer;
   }
 
   li:hover {
     background-color: var(--btn-selected);
-    color: var(--tertiary);
+    color: var(--primary);
   }
 `
 

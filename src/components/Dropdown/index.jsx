@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 
-import {
-  ProfileBox,
-  ProfileImage,
-  Dropdownwrapper
-} from './styles'
+import { ProfileBox, ProfileImage, Dropdownwrapper } from './styles'
+import { Link } from 'react-router-dom'
 
 const Dropdown = ({ options, defaultText }) => {
   const [state, setState] = useState(false)
@@ -22,9 +19,17 @@ const Dropdown = ({ options, defaultText }) => {
 
       <Dropdownwrapper $state={state} onMouseLeave={() => changeState(!state)}>
         <ul>
-          {options.map((option, index) => (
-            <li key={index}>{option}</li>
-          ))}
+          {options.map((option, index) =>
+            option.url === undefined ? (
+              <li onClick={option.onClick} key={index}>
+                {option.name}
+              </li>
+            ) : (
+              <Link to={option.url} key={index}>
+                <li>{option.name}</li>
+              </Link>
+            )
+          )}
         </ul>
       </Dropdownwrapper>
     </>

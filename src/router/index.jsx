@@ -12,50 +12,62 @@ import Measurements from '../pages/Account/Measurements'
 import About from '../pages/About'
 import NotFound from '../pages/NotFound'
 
+import PrivateRoute from './privateRoute'
+import { AuthProvider } from '../context/AuthContext'
+
 const routes = createBrowserRouter([
   {
-    path: '/',
-    element: <Base />,
+    element: <AuthProvider />,
     children: [
       {
         path: '/',
-        element: <Home />
-      },
-      {
-        path: '/login',
-        element: <Login />
-      },
-      {
-        path: '/register',
-        element: <Register />
-      },
-      {
-        path: '/workouts',
-        element: <Workouts />
-      },
-      {
-        path: '/exercises',
-        element: <Exercises />
-      },
-      {
-        path: '/tools',
-        element: <Tools />
-      },
-      {
-        path: '/profile',
-        element: <Profile />
-      },
-      {
-        path: '/measurements',
-        element: <Measurements />
-      },
-      {
-        path: '/about',
-        element: <About />
-      },
-      {
-        path: '*',
-        element: <NotFound />
+        element: <Base />,
+        children: [
+          {
+            path: '/',
+            element: (
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            )
+          },
+          {
+            path: '/login',
+            element: <Login />
+          },
+          {
+            path: '/register',
+            element: <Register />
+          },
+          {
+            path: '/workouts',
+            element: <Workouts />
+          },
+          {
+            path: '/exercises',
+            element: <Exercises />
+          },
+          {
+            path: '/tools',
+            element: <Tools />
+          },
+          {
+            path: '/profile',
+            element: <Profile />
+          },
+          {
+            path: '/measurements',
+            element: <Measurements />
+          },
+          {
+            path: '/about',
+            element: <About />
+          },
+          {
+            path: '*',
+            element: <NotFound />
+          }
+        ]
       }
     ]
   }
