@@ -21,23 +21,15 @@ const routes = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Base />,
+        element: (
+          <PrivateRoute>
+            <Base />
+          </PrivateRoute>
+        ),
         children: [
           {
             path: '/',
-            element: (
-              <PrivateRoute>
-                <Home />
-              </PrivateRoute>
-            )
-          },
-          {
-            path: '/login',
-            element: <Login />
-          },
-          {
-            path: '/register',
-            element: <Register />
+            element: <Home />
           },
           {
             path: '/workouts',
@@ -62,6 +54,20 @@ const routes = createBrowserRouter([
           {
             path: '/about',
             element: <About />
+          }
+        ]
+      },
+      {
+        path: '/',
+        element: <Base />,
+        children: [
+          {
+            path: '/login',
+            element: <Login />
+          },
+          {
+            path: '/register',
+            element: <Register />
           },
           {
             path: '*',

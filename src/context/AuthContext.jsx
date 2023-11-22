@@ -80,7 +80,7 @@ const AuthProvider = () => {
   }
 
   useEffect(() => {
-    const REFRESH_INTERVAL = 1000 * 60 * 4 // 4 minutes
+    const REFRESH_INTERVAL = 1000 * 60 * 120 // 120 minutes
     const interval = setInterval(() => {
       if (authTokens) {
         updateToken()
