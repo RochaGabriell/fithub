@@ -28,7 +28,7 @@ import About from '../../assets/NavBar/About.svg'
 import { AuthContext } from '../../context/AuthContext'
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
-  const { user } = useContext(AuthContext)
+  const { user, logoutUser } = useContext(AuthContext)
   const navItems = [
     {
       name: 'Home',
@@ -116,7 +116,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                   {/* <div className="ruler">Web designer</div> */}
                 </div>
               </ProfileDetails>
-              <Logout className="bx bx-log-out" $isOpen={isOpen} />
+              <Logout
+                className="bx bx-log-out"
+                $isOpen={isOpen}
+                onClick={logoutUser}
+              />
             </Profile>
           )}
         </NavList>

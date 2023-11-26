@@ -1,15 +1,16 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 import { Wrapper, WrapperTop, Form, WrapperInput, BtnSubmit } from '../styles'
 import { AuthContext } from '../../../context/AuthContext'
 import Logo from '../../../assets/Logo - Dark.svg'
 
 const Login = () => {
-  // const [email, setEmail] = useState('')
-  // const [password, setPassword] = useState('')
+  const { authTokens, loginUser } = useContext(AuthContext)
 
-  const { loginUser } = useContext(AuthContext)
+  if (authTokens) {
+    return <Navigate to="/" />
+  }
 
   return (
     <Wrapper>
@@ -30,8 +31,7 @@ const Login = () => {
             name="email"
             id="email"
             placeholder="Endereço de Email"
-            // value={email}
-            // onChange={e => setEmail(e.target.value)}
+            required
           />
         </WrapperInput>
         <WrapperInput>
@@ -41,14 +41,14 @@ const Login = () => {
             name="password"
             id="password"
             placeholder="Senha"
-            // value={password}
-            // onChange={e => setPassword(e.target.value)}
+            autoComplete="on"
+            required
           />
         </WrapperInput>
         <Link to="/login" className="link">
           Esqueceu sua senha?
         </Link>
-        <BtnSubmit type="submit">Criar Conta</BtnSubmit>
+        <BtnSubmit type="submit">Entrar</BtnSubmit>
       </Form>
     </Wrapper>
   )

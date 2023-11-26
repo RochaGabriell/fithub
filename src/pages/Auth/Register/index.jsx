@@ -1,7 +1,9 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useContext } from 'react'
+import { Link, Navigate } from 'react-router-dom'
 
+import { AuthContext } from '../../../context/AuthContext'
 import Logo from '../../../assets/Logo - Dark.svg'
+
 import {
   Wrapper,
   WrapperTop,
@@ -19,6 +21,12 @@ const Register = () => {
   const [birthDate, setBirthDate] = useState('')
   const [sex, setSex] = useState('')
   const [password, setPassword] = useState('')
+
+  const { authTokens } = useContext(AuthContext)
+
+  if (authTokens) {
+    return <Navigate to="/" />
+  }
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -103,6 +111,7 @@ const Register = () => {
             name="password"
             id="password"
             placeholder="Senha"
+            autoComplete="on"
             value={password}
             onChange={e => setPassword(e.target.value)}
           />

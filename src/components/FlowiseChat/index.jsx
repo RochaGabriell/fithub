@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types'
 import { BubbleChat } from 'flowise-embed-react'
+import { useContext } from 'react'
+
+import { AuthContext } from '../../context/AuthContext'
 
 const FlowiseChat = ({ isOpen }) => {
+  const { user } = useContext(AuthContext)
+
   return (
     <>
-      {isOpen && window.innerWidth < 768 ? null : (
+      {!user || isOpen && window.innerWidth < 768 ? null : (
         <BubbleChat
           chatflowid="90352b4b-eb23-49a0-83e4-a3f87180c2ad"
           apiHost="https://flowisellm-k05b.onrender.com"
@@ -19,7 +24,7 @@ const FlowiseChat = ({ isOpen }) => {
                 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg'
             },
             chatWindow: {
-              welcomeMessage: 'Olá! Como posso ajudar?',
+              welcomeMessage: `Olá ${user.username}, como posso te ajudar?`,
               backgroundColor: 'var(--secondary)',
               height: 500,
               width: 400,

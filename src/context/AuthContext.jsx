@@ -1,7 +1,9 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import { Outlet } from 'react-router-dom'
+
+import api from '../services/api'
 
 const AuthContext = createContext()
 
@@ -16,78 +18,35 @@ const AuthProvider = () => {
       ? JSON.parse(localStorage.getItem('authTokens'))
       : null
   )
-  const [loading, setLoading] = useState(true)
-
   const navigate = useNavigate()
 
   const loginUser = async e => {
     e.preventDefault()
-    const response = await fetch(
-      'http://127.0.0.1:8000/api/v1/account/token/',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: e.target.email.value,
-          password: e.target.password.value
-        })
-      }
-    )
 
-    const data = await response.json()
+    const response = await api.post('/account/token/', {
+      email: e.target.email.value,
+      password: e.target.password.value
+    })
 
-    if (data) {
-      localStorage.setItem('authTokens', JSON.stringify(data))
-      setAuthTokens(data)
-      setUser(jwtDecode(data.access))
+    api.defaults.headers.Authorization = `Bearer ${response.data.access}`
+
+    if (response.data) {
+      localStorage.setItem('authTokens', JSON.stringify(response.data))
+      setAuthTokens(response.data)
+      setUser(jwtDecode(response.data.access))
       navigate('/')
     } else {
-      alert('Something went wrong while loggin in the user!')
+      alert('Algo deu errado ao fazer login do usuário!')
     }
   }
 
   const logoutUser = () => {
+    api.defaults.headers.Authorization = null
     localStorage.removeItem('authTokens')
     setAuthTokens(null)
     setUser(null)
     navigate('/login')
   }
-
-  const updateToken = async () => {
-    const response = await fetch('http://127.0.0.1:8000/api/token/refresh/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ refresh: authTokens?.refresh })
-    })
-
-    const data = await response.json()
-
-    if (response.status === 200) {
-      setAuthTokens(data)
-      setUser(jwtDecode(data.access))
-      localStorage.setItem('authTokens', JSON.stringify(data))
-    } else {
-      logoutUser()
-    }
-
-    if (loading) {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    const REFRESH_INTERVAL = 1000 * 60 * 120 // 120 minutes
-    const interval = setInterval(() => {
-      if (authTokens) {
-        updateToken()
-      }
-    }, REFRESH_INTERVAL)
-    return () => clearInterval(interval)
-  }, [authTokens])
 
   const contextData = {
     user: user,

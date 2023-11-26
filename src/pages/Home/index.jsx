@@ -1,31 +1,23 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import { useContext } from 'react'
+
 import { AuthContext } from '../../context/AuthContext'
+import api from '../../services/api'
 
 const Home = () => {
-  const { authTokens, logoutUser } = useContext(AuthContext)
   const [profile, setProfile] = useState([])
+  const { logoutUser } = useContext(AuthContext)
 
   useEffect(() => {
     getProfile()
   }, [])
 
   const getProfile = async () => {
-    const response = await fetch(
-      'http://127.0.0.1:8000/api/v1/account/profile/',
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + String(authTokens.access)
-        }
-      }
-    )
+    const { data, status, statusText } = await api.get('/account/profile/')
 
-    const data = await response.json()
-
-    if (response.status === 200) {
+    if (status === 200) {
       setProfile(data)
-    } else if (response.statusText === 'Unauthorized') {
+    } else if (statusText === 'Unauthorized') {
       logoutUser()
     }
   }
