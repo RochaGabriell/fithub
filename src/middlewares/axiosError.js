@@ -10,9 +10,16 @@ api.interceptors.response.use(
   async error => {
     if (error.response.status === 401 && !refresh) {
       refresh = true
+
       const data_local = JSON.parse(localStorage.getItem('authTokens'))
+
+      if (!data_local) {
+        refresh = false
+        return error
+      }
+
       const response = await api.post('/account/token/refresh/', {
-        refresh: data_local.refresh
+        refresh: data_local ? data_local.refresh : null
       })
 
       if (response.status === 200) {
@@ -21,9 +28,8 @@ api.interceptors.response.use(
         return api(error.config)
       }
     }
+
     refresh = false
-    api.defaults.headers.Authorization = null
-    localStorage.removeItem('authTokens')
     return error
   }
 )

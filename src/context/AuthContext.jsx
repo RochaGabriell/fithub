@@ -18,24 +18,28 @@ const AuthProvider = () => {
       ? JSON.parse(localStorage.getItem('authTokens'))
       : null
   )
+  const [error, setError] = useState(null)
   const navigate = useNavigate()
 
   const loginUser = async e => {
     e.preventDefault()
 
-    const response = await api.post('/account/token/', {
-      email: e.target.email.value,
-      password: e.target.password.value
-    })
+    try {
+      const response = await api.post('/account/token/', {
+        email: e.target.email.value,
+        password: e.target.password.value
+      })
 
-    api.defaults.headers.Authorization = `Bearer ${response.data.access}`
-
-    if (response.data) {
-      localStorage.setItem('authTokens', JSON.stringify(response.data))
-      setAuthTokens(response.data)
-      setUser(jwtDecode(response.data.access))
-      navigate('/')
-    } else {
+      if (response.data && response.status === 200) {
+        api.defaults.headers.Authorization = `Bearer ${response.data.access}`
+        localStorage.setItem('authTokens', JSON.stringify(response.data))
+        setAuthTokens(response.data)
+        setUser(jwtDecode(response.data.access))
+        navigate('/')
+      } else if (response.response && response.response.status === 401) {
+        setError(response.response.data.detail)
+      }
+    } catch (error) {
       alert('Algo deu errado ao fazer login do usuário!')
     }
   }
@@ -51,6 +55,10 @@ const AuthProvider = () => {
   const contextData = {
     user: user,
     authTokens: authTokens,
+    objError: {
+      error: error,
+      setError: setError
+    },
     loginUser: loginUser,
     logoutUser: logoutUser
   }

@@ -50,10 +50,6 @@ const routes = createBrowserRouter([
           {
             path: '/measurements',
             element: <Measurements />
-          },
-          {
-            path: '/about',
-            element: <About />
           }
         ]
       },
@@ -68,6 +64,10 @@ const routes = createBrowserRouter([
           {
             path: '/register',
             element: <Register />
+          },
+          {
+            path: '/about',
+            element: <About />
           },
           {
             path: '*',

@@ -4,7 +4,6 @@ import { RouterProvider } from 'react-router-dom'
 
 import routes from './router'
 import GlobalStyle from './styles/GlobalStyles'
-import './middlewares/axiosConfig'
 import './middlewares/axiosError'
 
 ReactDOM.createRoot(document.getElementById('root')).render(

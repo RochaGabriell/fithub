@@ -1,19 +1,46 @@
-import { useContext } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { useContext, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+import { AuthContext } from '../../../context/AuthContext'
 
 import { Wrapper, WrapperTop, Form, WrapperInput, BtnSubmit } from '../styles'
-import { AuthContext } from '../../../context/AuthContext'
 import Logo from '../../../assets/Logo - Dark.svg'
 
 const Login = () => {
-  const { authTokens, loginUser } = useContext(AuthContext)
+  const { authTokens, loginUser, objError } = useContext(AuthContext)
+  const { error, setError } = objError
+  const navigate = useNavigate()
 
-  if (authTokens) {
-    return <Navigate to="/" />
-  }
+  useEffect(() => {
+    if (error) {
+      toast.error(error)
+      setError(null)
+      document.getElementById('password').value = ''
+    }
+  }, [error, setError])
+
+  useEffect(() => {
+    if (authTokens) {
+      navigate('/')
+    }
+  })
 
   return (
     <Wrapper>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <WrapperTop style={{ flexDirection: 'column' }}>
         <img src={Logo} alt="Logo" />
         <div style={{ textAlign: 'center' }}>
