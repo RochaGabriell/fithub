@@ -9,10 +9,10 @@ const FlowiseChat = ({ isOpen }) => {
 
   return (
     <>
-      {!user || isOpen && window.innerWidth < 768 ? null : (
+      {!user || (isOpen && window.innerWidth < 768) ? null : (
         <BubbleChat
-          chatflowid="90352b4b-eb23-49a0-83e4-a3f87180c2ad"
-          apiHost="https://flowisellm-k05b.onrender.com"
+          chatflowid="bdea5f37-b6ed-4ef6-bb87-800dc1f10849"
+          apiHost="https://rochagabriell-chatfit.hf.space"
           theme={{
             button: {
               backgroundColor: 'var(--btn-selected)',
