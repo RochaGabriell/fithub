@@ -26,11 +26,9 @@ const Profile = () => {
   useEffect(() => {
     if (error) {
       toast.error(error)
-      document.getElementById('password').value = ''
     }
   }, [error])
 
-  // Essa função é executada quando loading muda de false para true, colocando o toast de carregando na tela
   useEffect(() => {
     if (loading) {
       toast.info('Carregando...')
