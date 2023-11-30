@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   align-items: center;
   color: var(--primary);
   border-radius: 10px;
+  height: fit-content;
 
   img {
     width: 55px;
@@ -41,6 +42,10 @@ const Wrapper = styled.div`
     margin: 0;
   }
 
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
+
   @media screen and (max-width: 430px) {
     img {
       display: none;
@@ -66,6 +71,12 @@ const WrapperTop = styled.div`
   div {
     display: flex;
     flex-direction: column;
+    text-align: center;
+
+    span {
+      font-size: 20px;
+      font-weight: 400;
+    }
   }
 `
 

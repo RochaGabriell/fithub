@@ -13,7 +13,7 @@ function useAxios(initialAxiosParams = null) {
     try {
       setLoading(true)
       const res = await api.request(params)
-      setResponse(res.data)
+      setResponse(res)
     } catch (error) {
       setError(error)
     } finally {

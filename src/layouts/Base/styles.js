@@ -27,6 +27,7 @@ const Container = styled.div`
   align-items: center;
 
   @media (max-width: 768px) {
+    align-items: start;
     /* height: max-content; */
   }
 `
