@@ -16,14 +16,14 @@ const Base = () => {
 
   return (
     <Wrapper>
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      <WrapperContainer isOpen={isSidebarOpen}>
-        <Header isOpen={isSidebarOpen} />
+      <Sidebar isopen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <WrapperContainer $isopen={isSidebarOpen}>
+        <Header isopen={isSidebarOpen} />
         <Container>
           <Outlet />
         </Container>
       </WrapperContainer>
-      <FlowiseChat isOpen={isSidebarOpen} />
+      <FlowiseChat isopen={isSidebarOpen} />
     </Wrapper>
   )
 }

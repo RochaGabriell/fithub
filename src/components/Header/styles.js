@@ -21,7 +21,7 @@ const WrapperLeft = styled.div`
 `
 
 const LogoDetailsMod = styled(LogoDetails)`
-  display: ${props => (props.$isOpen ? 'flex' : 'none')};
+  display: ${props => (props.$isopen ? 'flex' : 'none')};
   height: 100%;
   gap: 10px;
 

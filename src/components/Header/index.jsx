@@ -14,7 +14,7 @@ import { AuthContext } from '../../context/AuthContext'
 import Logo from '../../assets/Logo - Light.svg'
 import Dropdown from '../Dropdown'
 
-const Header = ({ isOpen }) => {
+const Header = ({ isopen }) => {
   const { user, logoutUser } = useContext(AuthContext)
   const optionsLogged = [
     { name: 'Perfil', url: '/profile' },
@@ -40,9 +40,9 @@ const Header = ({ isOpen }) => {
   return (
     <Wrapper>
       <WrapperLeft>
-        <LogoDetailsMod $isOpen={!isOpen}>
-          <Icon src={Logo} alt="logo" $isOpen={!isOpen} />
-          <LogoName $isOpen={!isOpen}>FitHub</LogoName>
+        <LogoDetailsMod $isopen={!isopen}>
+          <Icon src={Logo} alt="logo" $isopen={!isopen} />
+          <LogoName $isopen={!isopen}>FitHub</LogoName>
         </LogoDetailsMod>
         <TextBox>
           <h1>Bem-vindo</h1>
@@ -55,7 +55,7 @@ const Header = ({ isOpen }) => {
 }
 
 Header.propTypes = {
-  isOpen: PropTypes.bool.isRequired
+  isopen: PropTypes.bool.isRequired
 }
 
 export default Header

@@ -4,12 +4,12 @@ import { useContext } from 'react'
 
 import { AuthContext } from '../../context/AuthContext'
 
-const FlowiseChat = ({ isOpen }) => {
+const FlowiseChat = ({ isopen }) => {
   const { user } = useContext(AuthContext)
 
   return (
     <>
-      {!user || (isOpen && window.innerWidth < 768) ? null : (
+      {!user || (isopen && window.innerWidth < 768) ? null : (
         <BubbleChat
           chatflowid="bdea5f37-b6ed-4ef6-bb87-800dc1f10849"
           apiHost="https://rochagabriell-chatfit.hf.space"
@@ -59,7 +59,7 @@ const FlowiseChat = ({ isOpen }) => {
 }
 
 FlowiseChat.propTypes = {
-  isOpen: PropTypes.bool.isRequired
+  isopen: PropTypes.bool.isRequired
 }
 
 export default FlowiseChat

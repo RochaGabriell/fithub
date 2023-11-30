@@ -27,7 +27,7 @@ import Dumbbells from '../../assets/NavBar/Dumbbells.svg'
 import About from '../../assets/NavBar/About.svg'
 import { AuthContext } from '../../context/AuthContext'
 
-const Sidebar = ({ isOpen, toggleSidebar }) => {
+const Sidebar = ({ isopen, toggleSidebar }) => {
   const { user, logoutUser } = useContext(AuthContext)
   const navItems = [
     {
@@ -71,14 +71,14 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   ]
 
   return (
-    <Wrapper $isOpen={isOpen}>
+    <Wrapper $isopen={isopen}>
       <LogoDetails>
-        <Icon src={Logo} alt="logo" $isOpen={isOpen} />
-        <LogoName $isOpen={isOpen}>FitHub</LogoName>
+        <Icon src={Logo} alt="logo" $isopen={isopen} />
+        <LogoName $isopen={isopen}>FitHub</LogoName>
         <HamBurgerMenu
           className="bx bx-menu"
           onClick={toggleSidebar}
-          $isOpen={isOpen}
+          $isopen={isopen}
         />
       </LogoDetails>
       <WrapperNav>
@@ -87,9 +87,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <li key={index}>
               <Link to={item.link}>
                 <img src={item.icon} alt="home" />
-                <LinkName $isOpen={isOpen}>{item.name}</LinkName>
+                <LinkName $isopen={isopen}>{item.name}</LinkName>
               </Link>
-              <ToolTip $isOpen={isOpen}>{item.name}</ToolTip>
+              <ToolTip $isopen={isopen}>{item.name}</ToolTip>
             </li>
           ))}
         </NavList>
@@ -99,13 +99,13 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               <li key={index}>
                 <Link to={item.link}>
                   <img src={item.icon} alt="home" />
-                  <LinkName $isOpen={isOpen}>{item.name}</LinkName>
+                  <LinkName $isopen={isopen}>{item.name}</LinkName>
                 </Link>
-                <ToolTip $isOpen={isOpen}>{item.name}</ToolTip>
+                <ToolTip $isopen={isopen}>{item.name}</ToolTip>
               </li>
             ))
           ) : (
-            <Profile $isOpen={isOpen}>
+            <Profile $isopen={isopen}>
               <ProfileDetails>
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
@@ -118,7 +118,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               </ProfileDetails>
               <Logout
                 className="bx bx-log-out"
-                $isOpen={isOpen}
+                $isopen={isopen}
                 onClick={logoutUser}
               />
             </Profile>
@@ -130,7 +130,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 }
 
 Sidebar.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
+  isopen: PropTypes.bool.isRequired,
   toggleSidebar: PropTypes.func.isRequired
 }
 
