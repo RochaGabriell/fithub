@@ -8,7 +8,6 @@ const AboutWrapper = styled.div`
   margin: 0 auto;
   padding: 0 16%;
   text-align: center;
-  overflow-y: scroll;
 
   @media (max-width: 768px) {
     padding: 0 1rem;

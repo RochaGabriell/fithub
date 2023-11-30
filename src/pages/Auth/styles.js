@@ -1,5 +1,13 @@
 import styled from 'styled-components'
 
+const Container = styled.div`
+  display: flex;
+  /* align-items: center; */
+  width: 100%;
+  height: 100%;
+  max-width: max-content;
+`
+
 const Wrapper = styled.div`
   background-color: var(--tertiary);
   width: 430px;
@@ -7,7 +15,7 @@ const Wrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  flex-wrap: wrap;
+
   padding: 16px 30px;
   flex-direction: column;
   align-items: center;
@@ -133,6 +141,7 @@ const BtnSubmit = styled.button`
 `
 
 export {
+  Container,
   Wrapper,
   WrapperTop,
   Form,

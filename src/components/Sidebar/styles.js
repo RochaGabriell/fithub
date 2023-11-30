@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   transition: all 0.5s ease;
   border-right: 1px solid var(--quaternary);
 
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: 768px) {
     width: ${props => (props.$isopen ? '100vw' : '78px')};
   }
 `

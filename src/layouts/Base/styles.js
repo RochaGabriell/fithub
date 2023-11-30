@@ -21,10 +21,11 @@ const WrapperContainer = styled.div`
 const Container = styled.div`
   display: flex;
   /* max-width: 1200px; */
-  height: calc(100vh - 3.6rem);
+  /* height: calc(100vh - 3.6rem); */
   padding: 1rem 0;
   justify-content: center;
   align-items: center;
+  margin: auto;
 
   @media (max-width: 768px) {
     align-items: start;
