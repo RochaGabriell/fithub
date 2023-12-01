@@ -45,6 +45,14 @@ const AuthProvider = () => {
   }
 
   const logoutUser = () => {
+    // try {
+    //   const response = api.post('/account/logout/')
+    //   if (response.status === 204) {
+    //     console.log('Usuário deslogado com sucesso!')
+    //   }
+    // } catch (error) {
+    //   console.log('Algo deu errado ao fazer logout do usuário!')
+    // }
     api.defaults.headers.Authorization = null
     localStorage.removeItem('authTokens')
     setAuthTokens(null)

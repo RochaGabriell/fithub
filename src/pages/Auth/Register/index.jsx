@@ -1,8 +1,10 @@
-import { useState, useContext } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { useState, useContext, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 
 import { AuthContext } from '../../../context/AuthContext'
 import Logo from '../../../assets/Logo - Dark.svg'
+import useAxios from '../../../hooks/useAxios'
 
 import {
   Container,
@@ -16,26 +18,102 @@ import {
 } from '../styles'
 
 const Register = () => {
-  const [name, setName] = useState('')
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [birthDate, setBirthDate] = useState('')
-  const [sex, setSex] = useState('')
-  const [password, setPassword] = useState('')
-
   const { authTokens } = useContext(AuthContext)
+  const { response, error, execute } = useAxios(null)
+  const [submitted, setSubmitted] = useState(false)
+  const navigate = useNavigate()
+  const [data, setData] = useState({
+    name: '',
+    username: '',
+    email: '',
+    birth_date: '',
+    sex: '',
+    password: ''
+  })
 
-  if (authTokens) {
-    return <Navigate to="/" />
-  }
+  useEffect(() => {
+    if (authTokens) {
+      navigate('/')
+    }
+
+    if (submitted) {
+      setSubmitted(false)
+      execute({
+        url: 'account/users',
+        method: 'POST',
+        data
+      })
+    }
+
+    if (error) {
+      toast.error(
+        'Ocorreu um erro ao processar a solicitação. Tente novamente.'
+      )
+    }
+  }, [authTokens, submitted, error])
+
+  useEffect(() => {
+    if (response?.response?.status === 400) {
+      const { data } = response.response
+      if (data) {
+        Object.entries(data).forEach(([key, value]) => {
+          const errorMessage = value[0] || 'Erro desconhecido'
+          toast.error(`${key}: ${errorMessage}`)
+        })
+      }
+    }
+
+    if (response?.status === 201) {
+      toast.success('Usuário cadastrado com sucesso!')
+      toast.info('Redirecionando para a página de login...')
+      setData({
+        name: '',
+        username: '',
+        email: '',
+        birth_date: '',
+        sex: '',
+        password: ''
+      })
+
+      setTimeout(() => {
+        navigate('/login')
+      }, 2000)
+    }
+  }, [response])
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log('Submit')
+    setSubmitted(true)
+  }
+
+  const handleInputChange = e => {
+    const { name, value } = e.target
+
+    const formattedValue =
+      name === 'birth_date'
+        ? new Date(value).toISOString().split('T')[0]
+        : value
+
+    setData(prevData => ({
+      ...prevData,
+      [name]: formattedValue
+    }))
   }
 
   return (
     <Container>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <Wrapper>
         <WrapperTop>
           <img src={Logo} alt="Logo" />
@@ -54,8 +132,9 @@ const Register = () => {
               name="name"
               id="name"
               placeholder="Nome Completo"
-              value={name}
-              onChange={e => setName(e.target.value)}
+              value={data.name}
+              onChange={handleInputChange}
+              required
             />
           </WrapperInput>
           <WrapperInput>
@@ -65,8 +144,9 @@ const Register = () => {
               name="username"
               id="username"
               placeholder="Nome de Usuário"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
+              value={data.username}
+              onChange={handleInputChange}
+              required
             />
           </WrapperInput>
           <WrapperInput>
@@ -76,20 +156,22 @@ const Register = () => {
               name="email"
               id="email"
               placeholder="Endereço de Email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
+              value={data.email}
+              onChange={handleInputChange}
+              required
             />
           </WrapperInput>
           <WrapperBirthDateSex>
             <WrapperInput>
-              <label htmlFor="birthDate">Data de Nascimento</label>
+              <label htmlFor="birth_date">Data de Nascimento</label>
               <input
                 type="date"
-                name="birthDate"
-                id="birthDate"
+                name="birth_date"
+                id="birth_date"
                 placeholder="Data de Nascimento"
-                value={birthDate}
-                onChange={e => setBirthDate(e.target.value)}
+                value={data.birth_date}
+                onChange={handleInputChange}
+                required
               />
             </WrapperInput>
             <WrapperInput>
@@ -97,8 +179,9 @@ const Register = () => {
               <SelectSex
                 name="sex"
                 id="sex"
-                value={sex}
-                onChange={e => setSex(e.target.value)}
+                value={data.sex}
+                onChange={handleInputChange}
+                required
               >
                 <option value="">Sexo</option>
                 <option value="M">Masculino</option>
@@ -114,8 +197,9 @@ const Register = () => {
               id="password"
               placeholder="Senha"
               autoComplete="on"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
+              value={data.password}
+              onChange={handleInputChange}
+              required
             />
           </WrapperInput>
           <Link to="/login" className="link">

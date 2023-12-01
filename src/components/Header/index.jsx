@@ -18,7 +18,7 @@ const Header = ({ isopen }) => {
   const { user, logoutUser } = useContext(AuthContext)
   const optionsLogged = [
     { name: 'Perfil', url: '/profile' },
-    { name: 'Measurements', url: '/measurements' },
+    { name: 'Medidas', url: '/measurements' },
     { name: 'Sair', onClick: logoutUser }
   ]
   const optionsNotLogged = [
