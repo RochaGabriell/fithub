@@ -36,6 +36,7 @@ const AllMeasurements = () => {
       url: '/account/measurements-by-user',
       method: 'get'
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   console.log(response)

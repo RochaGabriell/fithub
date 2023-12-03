@@ -40,7 +40,7 @@ const AuthProvider = () => {
         setError(response.response.data.detail)
       }
     } catch (error) {
-      alert('Algo deu errado ao fazer login do usuário!')
+      setError('Algo deu errado ao fazer login do usuário!')
     }
   }
 
