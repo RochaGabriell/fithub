@@ -1,62 +1,67 @@
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import useAxios from '../../hooks/useAxios'
+import Pagination from '../../components/Pagination'
 
 const Exercises = () => {
-  const { response, loading, error, execute } = useAxios()
+  const { response, error, execute } = useAxios()
+  const [page, setPage] = useState(1)
 
-  useEffect(() => {
-    if (loading) {
-      toast.promise(
-        new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve()
-          }, 1000)
-        }),
-        {
-          pending: 'Loading...',
-          success: 'Success',
-          error: 'Error'
-        }
-      )
-    }
-  }, [loading])
-
-  const getExercises = async () => {
-    try {
-      await execute({
-        url: '/exercise/exercise',
-        method: 'get'
-      })
-    } catch (err) {
-      console.log(err)
-    }
+  const handlePage = page => {
+    setPage(page)
+    execute({
+      url: `/exercise/exercise?page=${page}`,
+      method: 'get'
+    })
   }
 
+  useEffect(() => {
+    if (error || response?.code !== 200) {
+      toast.error(error)
+      toast.error(
+        response?.message === 'Request failed with status code 404'
+          ? 'Não foi encontrado nenhum exercício'
+          : response?.message
+      )
+    }
+  }, [error, response?.code, response?.message])
+
+  useEffect(() => {
+    execute({
+      url: `/exercise/exercise?page=${page}`,
+      method: 'get'
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  console.log(response)
+
   return (
-    <div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-      <h1>Exercises</h1>
-      <button onClick={getExercises}>Get Exercises</button>
-      {response?.data?.map(exercise => (
-        <div key={exercise.id}>
-          <p>{exercise.name}</p>
-        </div>
-      ))}
-    </div>
+    <>
+      <div>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+        <h1>Exercises</h1>
+        {response?.data?.results?.map(exercise => (
+          <div key={exercise.id}>
+            <p>{exercise.name}</p>
+          </div>
+        ))}
+      </div>
+      <Pagination page={page} handlePage={handlePage} response={response} />
+    </>
   )
 }
 

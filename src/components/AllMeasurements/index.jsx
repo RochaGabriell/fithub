@@ -1,5 +1,5 @@
 import useAxios from '../../hooks/useAxios'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 
 import {
@@ -8,8 +8,11 @@ import {
   WrapperData
 } from '../MyMeasurements/styles'
 
+import Pagination from '../Pagination'
+
 const AllMeasurements = () => {
   const { response, error, execute } = useAxios(null)
+  const [page, setPage] = useState(1)
 
   const getDateFormat = date => {
     const dateObj = new Date(date)
@@ -33,11 +36,19 @@ const AllMeasurements = () => {
 
   useEffect(() => {
     execute({
-      url: '/account/measurements-by-user',
+      url: `/account/measurements-by-user?page=${page}`,
       method: 'get'
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const handlePage = page => {
+    setPage(page)
+    execute({
+      url: `/account/measurements-by-user?page=${page}`,
+      method: 'get'
+    })
+  }
 
   return (
     <>
@@ -54,7 +65,7 @@ const AllMeasurements = () => {
         theme="dark"
       />
       <ContainerMeasurements style={{ gridTemplateRows: '1fr' }}>
-        {response?.data?.map(item => {
+        {response?.data?.results?.map(item => {
           return (
             <WrapperBox key={item.id}>
               <div>
@@ -136,6 +147,7 @@ const AllMeasurements = () => {
           )
         })}
       </ContainerMeasurements>
+      <Pagination page={page} handlePage={handlePage} response={response} />
     </>
   )
 }

@@ -96,23 +96,27 @@ const MyMeasurements = () => {
   }
 
   const getBmcAndRcq = () => {
-    if (!response || !response.data || !Array.isArray(response.data)) {
+    if (
+      !response ||
+      !response.data?.results ||
+      !Array.isArray(response.data?.results)
+    ) {
       return null
     }
 
-    const height = response?.data
+    const height = response?.data?.results
       .map(item => item.height)
       .slice(-12)
       .reverse()
-    const weight = response?.data
+    const weight = response?.data?.results
       .map(item => item.weight)
       .slice(-12)
       .reverse()
-    const waist = response?.data
+    const waist = response?.data?.results
       .map(item => item.waist)
       .slice(-12)
       .reverse()
-    const hip = response?.data
+    const hip = response?.data?.results
       .map(item => item.hip)
       .slice(-12)
       .reverse()
@@ -136,7 +140,7 @@ const MyMeasurements = () => {
     datasets: [
       {
         label: 'Peso',
-        data: response?.data
+        data: response?.data?.results
           .map(item => item.weight)
           .slice(-12)
           .reverse(),
@@ -222,51 +226,51 @@ const MyMeasurements = () => {
           <div>
             <WrapperData>
               <label htmlFor="weight">Peso</label>
-              <div>{response?.data[0]?.weight || ''}</div>
+              <div>{response?.data?.results[0].weight || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="height">Altura</label>
-              <div>{response?.data[0]?.height || ''}</div>
+              <div>{response?.data?.results[0].height || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="shoulder">Ombro</label>
-              <div>{response?.data[0]?.shoulder || ''}</div>
+              <div>{response?.data?.results[0].shoulder || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="chest">Peito</label>
-              <div>{response?.data[0]?.chest || ''}</div>
+              <div>{response?.data?.results[0].chest || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="right_arm">Braço direito</label>
-              <div>{response?.data[0]?.right_arm || ''}</div>
+              <div>{response?.data?.results[0].right_arm || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="left_arm">Braço esquerdo</label>
-              <div>{response?.data[0]?.left_arm || ''}</div>
+              <div>{response?.data?.results[0].left_arm || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="right_forearm">Antebraço direito</label>
-              <div>{response?.data[0]?.right_forearm || ''}</div>
+              <div>{response?.data?.results[0].right_forearm || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="left_forearm">Antebraço esquerdo</label>
-              <div>{response?.data[0]?.left_forearm || ''}</div>
+              <div>{response?.data?.results[0].left_forearm || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="right_fist">Punho direito</label>
-              <div>{response?.data[0]?.right_fist || ''}</div>
+              <div>{response?.data?.results[0].right_fist || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="left_fist">Punho esquerdo</label>
-              <div>{response?.data[0]?.left_fist || ''}</div>
+              <div>{response?.data?.results[0].left_fist || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="waist">Cintura</label>
-              <div>{response?.data[0]?.waist || ''}</div>
+              <div>{response?.data?.results[0].waist || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="abdomen">Abdômen</label>
-              <div>{response?.data[0]?.abdomen || ''}</div>
+              <div>{response?.data?.results[0].abdomen || ''}</div>
             </WrapperData>
           </div>
         </WrapperBox>
@@ -294,63 +298,75 @@ const MyMeasurements = () => {
             <label htmlFor="ibm">
               <strong>IMC</strong> -{' '}
               {getBmi(
-                response?.data[0]?.weight,
-                response?.data[0]?.height
+                response?.data?.results[0].weight,
+                response?.data?.results[0].height
               )?.value?.toFixed(2) || ''}
             </label>
             <div
               style={{
                 backgroundColor:
-                  getBmi(response?.data[0]?.weight, response?.data[0]?.height)
-                    ?.status === 'Abaixo do peso'
+                  getBmi(
+                    response?.data?.results[0].weight,
+                    response?.data?.results[0].height
+                  )?.status === 'Abaixo do peso'
                     ? 'blue'
                     : getBmi(
-                        response?.data[0]?.weight,
-                        response?.data[0]?.height
+                        response?.data?.results[0].weight,
+                        response?.data?.results[0].height
                       )?.status === 'Peso normal'
                     ? 'green'
                     : getBmi(
-                        response?.data[0]?.weight,
-                        response?.data[0]?.height
+                        response?.data?.results[0].weight,
+                        response?.data?.results[0].height
                       )?.status === 'Excesso de peso'
                     ? 'orange'
                     : getBmi(
-                        response?.data[0]?.weight,
-                        response?.data[0]?.height
+                        response?.data?.results[0].weight,
+                        response?.data?.results[0].height
                       )?.status === 'Obesidade'
                     ? 'red'
                     : ''
               }}
             >
-              {getBmi(response?.data[0]?.weight, response?.data[0]?.height)
-                ?.status || ''}
+              {getBmi(
+                response?.data?.results[0].weight,
+                response?.data?.results[0].height
+              )?.status || ''}
             </div>
           </WrapperData>
           <WrapperData>
             <label htmlFor="rcq">
               <strong>RCQ</strong> -{' '}
               {getRcq(
-                response?.data[0]?.waist,
-                response?.data[0]?.hip
+                response?.data?.results[0].waist,
+                response?.data?.results[0].hip
               )?.value?.toFixed(2) || ''}
             </label>
             <div
               style={{
                 backgroundColor:
-                  getRcq(response?.data[0]?.waist, response?.data[0]?.hip)
-                    ?.status === 'Baixo Risco'
+                  getRcq(
+                    response?.data?.results[0].waist,
+                    response?.data?.results[0].hip
+                  )?.status === 'Baixo Risco'
                     ? 'orange'
-                    : getRcq(response?.data[0]?.waist, response?.data[0]?.hip)
-                        ?.status === 'Risco Moderado'
+                    : getRcq(
+                        response?.data?.results[0].waist,
+                        response?.data?.results[0].hip
+                      )?.status === 'Risco Moderado'
                     ? 'green'
-                    : getRcq(response?.data[0]?.waist, response?.data[0]?.hip)
-                        ?.status === 'Alto Risco'
+                    : getRcq(
+                        response?.data?.results[0].waist,
+                        response?.data?.results[0].hip
+                      )?.status === 'Alto Risco'
                     ? 'red'
                     : ''
               }}
             >
-              {getRcq(response?.data[0]?.waist, response?.data[0]?.hip)
-                ?.status || ''}
+              {getRcq(
+                response?.data?.results[0].waist,
+                response?.data?.results[0].hip
+              )?.status || ''}
             </div>
           </WrapperData>
         </WrapperBox>
@@ -366,27 +382,29 @@ const MyMeasurements = () => {
           <div>
             <WrapperData>
               <label htmlFor="hip">Quadril</label>
-              <div>{response?.data[0]?.hip || ''}</div>
+              <div>{response?.data?.results[0].hip || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="right_thigh">Coxa direita</label>
-              <div>{response?.data[0]?.right_thigh || ''}</div>
+              <div>{response?.data?.results[0].right_thigh || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="left_thigh">Coxa esquerda</label>
-              <div>{response?.data[0]?.left_thigh || ''}</div>
+              <div>{response?.data?.results[0].left_thigh || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="right_calf">Panturrilha direita</label>
-              <div>{response?.data[0]?.right_calf || ''}</div>
+              <div>{response?.data?.results[0].right_calf || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="left_calf">Panturrilha esquerda</label>
-              <div>{response?.data[0]?.left_calf || ''}</div>
+              <div>{response?.data?.results[0].left_calf || ''}</div>
             </WrapperData>
             <WrapperData>
               <label htmlFor="created_at">Data de medição</label>
-              <div>{getDateFormat(response?.data[0]?.created_at) || ''}</div>
+              <div>
+                {getDateFormat(response?.data?.results[0].created_at) || ''}
+              </div>
             </WrapperData>
           </div>
         </WrapperBox>
