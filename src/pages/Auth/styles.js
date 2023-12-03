@@ -4,6 +4,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  min-width: 280px;
   height: 100%;
   max-width: max-content;
 `
@@ -15,7 +16,6 @@ const Wrapper = styled.div`
   /* margin-left: auto;
   margin-right: auto; */
   display: flex;
-
   padding: 16px 30px;
   flex-direction: column;
   align-items: center;
@@ -52,6 +52,7 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 90%;
+    padding: 16px 10px;
   }
 
   @media screen and (max-width: 430px) {

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const HeaderWrapper = styled.nav`
   display: flex;
   justify-content: space-between;
-  padding-left: 25px;
+  padding: 0 20px;
   text-align: center;
 
   ul {

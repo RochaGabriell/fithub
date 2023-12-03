@@ -39,8 +39,6 @@ const AllMeasurements = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log(response)
-
   return (
     <>
       <ToastContainer

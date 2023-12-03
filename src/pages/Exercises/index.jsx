@@ -51,10 +51,9 @@ const Exercises = () => {
       />
       <h1>Exercises</h1>
       <button onClick={getExercises}>Get Exercises</button>
-      {response?.map(exercise => (
+      {response?.data?.map(exercise => (
         <div key={exercise.id}>
-          <h1>{exercise.name}</h1>
-          <p>{exercise.description}</p>
+          <p>{exercise.name}</p>
         </div>
       ))}
     </div>

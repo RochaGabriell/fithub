@@ -1,37 +1,37 @@
-import { useState, useEffect } from 'react'
-import { useContext } from 'react'
+// import { useState, useEffect } from 'react'
+import styled from 'styled-components'
 
-import { AuthContext } from '../../context/AuthContext'
-import api from '../../services/api'
+import ManFront from '../../components/MuscleAnatomy/ManFront'
+import ManBack from '../../components/MuscleAnatomy/ManBack'
+
+import useAxios from '../../hooks/useAxios'
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+const MuscleAnatomy = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 const Home = () => {
-  const [profile, setProfile] = useState([])
-  const { logoutUser } = useContext(AuthContext)
-
-  useEffect(() => {
-    getProfile()
-  }, [])
-
-  const getProfile = async () => {
-    const { data, status, statusText } = await api.get('/account/profile/')
-
-    if (status === 200) {
-      setProfile(data)
-    } else if (statusText === 'Unauthorized') {
-      logoutUser()
-    }
-  }
+  const { response, error, execute } = useAxios(null)
 
   return (
-    <div>
-      <p>You are logged in to the homepage!</p>
-      <p>Name: {profile.name}</p>
-      <p>Username: {profile.username}</p>
-      <p>Email: {profile.email}</p>
-      <p>Idade: {profile.show_age}</p>
-      <p>Idade: {profile.birth_date}</p>
-      <p>Idade: {profile.sex}</p>
-    </div>
+    <Container>
+      <MuscleAnatomy>
+        <ManBack />
+        <ManFront />
+      </MuscleAnatomy>
+      {/* <FiltersExercise>
+
+      </FiltersExercise> */}
+    </Container>
   )
 }
 

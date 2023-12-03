@@ -9,6 +9,7 @@ import { ContainerMeasurements, WrapperBox, WrapperData } from './styles'
 const MyMeasurements = () => {
   const { response, error, execute } = useAxios(null)
   const labels = [
+    'Dezembro',
     'Janeria',
     'Fevereiro',
     'Março',
@@ -19,8 +20,7 @@ const MyMeasurements = () => {
     'Agosto',
     'Setempro',
     'Outubro',
-    'Novembro',
-    'Dezembro'
+    'Novembro'
   ]
 
   const getDateFormat = date => {
@@ -130,8 +130,6 @@ const MyMeasurements = () => {
 
     return { bmi, rcq }
   }
-
-  console.log(getBmcAndRcq())
 
   const dataWeight = {
     labels: labels,

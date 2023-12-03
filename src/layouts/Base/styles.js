@@ -25,7 +25,7 @@ const Container = styled.div`
   padding: 1rem 0;
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin: auto 0;
 
   @media (max-width: 768px) {
     align-items: start;
