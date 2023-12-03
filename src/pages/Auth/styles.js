@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   display: flex;
-  /* align-items: center; */
+  justify-content: center;
   width: 100%;
   height: 100%;
   max-width: max-content;
@@ -12,8 +12,8 @@ const Wrapper = styled.div`
   background-color: var(--tertiary);
   width: 430px;
   max-width: 1012px;
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
   display: flex;
 
   padding: 16px 30px;

@@ -8,7 +8,12 @@ import Workouts from '../pages/Workouts'
 import Exercises from '../pages/Exercises'
 import Tools from '../pages/Tools'
 import Profile from '../pages/Profile'
+
 import Measurements from '../pages/Measurements'
+import MyMeasurements from '../components/MyMeasurements'
+import CreateMeasurements from '../components/CreateMeasurements'
+import AllMeasurements from '../components/AllMeasurements'
+
 import About from '../pages/About'
 import NotFound from '../pages/NotFound'
 
@@ -49,7 +54,21 @@ const routes = createBrowserRouter([
           },
           {
             path: '/measurements',
-            element: <Measurements />
+            element: <Measurements />,
+            children: [
+              {
+                path: '/measurements',
+                element: <MyMeasurements />
+              },
+              {
+                path: '/measurements/create',
+                element: <CreateMeasurements />
+              },
+              {
+                path: '/measurements/all',
+                element: <AllMeasurements />
+              }
+            ]
           }
         ]
       },
