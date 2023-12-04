@@ -11,7 +11,7 @@ import Profile from '../pages/Profile'
 
 import Measurements from '../pages/Measurements'
 import MyMeasurements from '../components/MyMeasurements'
-import CreateMeasurements from '../components/CreateMeasurements'
+import FormMeasurements from '../components/FormMeasurements'
 import AllMeasurements from '../components/AllMeasurements'
 
 import About from '../pages/About'
@@ -61,8 +61,12 @@ const routes = createBrowserRouter([
                 element: <MyMeasurements />
               },
               {
-                path: '/measurements/create',
-                element: <CreateMeasurements />
+                path: '/measurements/form',
+                element: <FormMeasurements />
+              },
+              {
+                path: '/measurements/form/:id',
+                element: <FormMeasurements />
               },
               {
                 path: '/measurements/all',

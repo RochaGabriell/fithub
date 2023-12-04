@@ -1,6 +1,7 @@
 import useAxios from '../../hooks/useAxios'
 import { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
+import swal from 'sweetalert'
 
 import {
   ContainerMeasurements,
@@ -9,10 +10,51 @@ import {
 } from '../MyMeasurements/styles'
 
 import Pagination from '../Pagination'
+import { Link } from 'react-router-dom'
 
 const AllMeasurements = () => {
   const { response, error, execute } = useAxios(null)
   const [page, setPage] = useState(1)
+  const translations = {
+    weight: 'Peso',
+    height: 'Altura',
+    shoulder: 'Ombro',
+    chest: 'Peito',
+    right_arm: 'Braço Direito',
+    left_arm: 'Braço Esquerdo',
+    right_forearm: 'Antebraço Direito',
+    left_forearm: 'Antebraço Esquerdo',
+    right_fist: 'Punho Direito',
+    left_fist: 'Punho Esquerdo',
+    waist: 'Cintura',
+    abdomen: 'Abdômen',
+    hip: 'Quadril',
+    right_thigh: 'Coxa Direita',
+    left_thigh: 'Coxa Esquerda',
+    right_calf: 'Panturrilha Direita',
+    left_calf: 'Panturrilha Esquerda',
+    user: 'Usuário'
+  }
+  // eslint-disable-next-line no-unused-vars
+  const [data, setData] = useState({
+    weight: '',
+    height: '',
+    shoulder: '',
+    chest: '',
+    right_arm: '',
+    left_arm: '',
+    right_forearm: '',
+    left_forearm: '',
+    right_fist: '',
+    left_fist: '',
+    waist: '',
+    abdomen: '',
+    hip: '',
+    right_thigh: '',
+    left_thigh: '',
+    right_calf: '',
+    left_calf: ''
+  })
 
   const getDateFormat = date => {
     const dateObj = new Date(date)
@@ -50,6 +92,37 @@ const AllMeasurements = () => {
     })
   }
 
+  const confirmDelete = id => {
+    swal({
+      title: 'Tem certeza que deseja excluir?',
+      text: 'Uma vez excluído, você não poderá recuperar esta medida!',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true
+    }).then(async willDelete => {
+      if (willDelete) {
+        try {
+          await execute({
+            url: `/account/measurements/${id}`,
+            method: 'delete'
+          })
+          if (willDelete) {
+            swal('Sua medida foi excluída com sucesso!', {
+              icon: 'success'
+            })
+          }
+          handlePage(1)
+        } catch (error) {
+          swal('Erro ao excluir a medida. Tente novamente!', {
+            icon: 'error'
+          })
+        }
+      } else {
+        swal('Sua medida está segura!')
+      }
+    })
+  }
+
   return (
     <>
       <ToastContainer
@@ -65,87 +138,39 @@ const AllMeasurements = () => {
         theme="dark"
       />
       <ContainerMeasurements style={{ gridTemplateRows: '1fr' }}>
-        {response?.data?.results?.map(item => {
-          return (
-            <WrapperBox key={item.id}>
-              <div>
-                <h1>
-                  Medida - <span>{getDateFormat(item?.created_at) || ''}</span>
-                </h1>
-              </div>
-              <div>
-                <WrapperData>
-                  <label htmlFor="weight">Peso</label>
-                  <div>{item?.weight || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="height">Altura</label>
-                  <div>{item?.height || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="shoulder">Ombro</label>
-                  <div>{item?.shoulder || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="chest">Peito</label>
-                  <div>{item?.chest || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="right_arm">Braço direito</label>
-                  <div>{item?.right_arm || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="left_arm">Braço esquerdo</label>
-                  <div>{item?.left_arm || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="right_forearm">Antebraço direito</label>
-                  <div>{item?.right_forearm || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="left_forearm">Antebraço esquerdo</label>
-                  <div>{item?.left_forearm || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="right_fist">Punho direito</label>
-                  <div>{item?.right_fist || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="left_fist">Punho esquerdo</label>
-                  <div>{item?.left_fist || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="waist">Cintura</label>
-                  <div>{item?.waist || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="abdomen">Abdômen</label>
-                  <div>{item?.abdomen || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="hip">Quadril</label>
-                  <div>{item?.hip || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="right_thigh">Coxa direita</label>
-                  <div>{item?.right_thigh || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="left_thigh">Coxa esquerda</label>
-                  <div>{item?.left_thigh || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="right_calf">Panturrilha direita</label>
-                  <div>{item?.right_calf || ''}</div>
-                </WrapperData>
-                <WrapperData>
-                  <label htmlFor="left_calf">Panturrilha esquerda</label>
-                  <div>{item?.left_calf || ''}</div>
-                </WrapperData>
-              </div>
-            </WrapperBox>
-          )
-        })}
+        {response?.data?.results?.map(item => (
+          <WrapperBox key={item.id}>
+            <div className="headerCard">
+              <h1>
+                Medida - <span>{getDateFormat(item?.created_at) || ''}</span>
+              </h1>
+              <span className="actions">
+                <Link to={`/measurements/form/${item.id}`} className="btn-edit">
+                  Editar
+                </Link>
+                <a
+                  className="btn-delete"
+                  onClick={() => confirmDelete(item.id)}
+                >
+                  Excluir
+                </a>
+              </span>
+            </div>
+            <div>
+              {Object.keys(data).map(
+                (itemm, index) =>
+                  itemm !== 'id' &&
+                  itemm !== 'created_at' &&
+                  itemm !== 'updated_at' && (
+                    <WrapperData key={index}>
+                      <label htmlFor={itemm}>{translations[itemm]}</label>
+                      <div>{item[itemm] || ''}</div>
+                    </WrapperData>
+                  )
+              )}
+            </div>
+          </WrapperBox>
+        ))}
       </ContainerMeasurements>
       <Pagination page={page} handlePage={handlePage} response={response} />
     </>

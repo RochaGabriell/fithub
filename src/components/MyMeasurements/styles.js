@@ -93,6 +93,50 @@ const WrapperBox = styled(Wrapper)`
     border-radius: 10px;
     padding: 10px 5px;
     text-align: center;
+
+    .actions {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 5px;
+
+      a {
+        background-color: var(--btn-selected);
+        text-decoration: none;
+        color: var(--tertiary);
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+        transition: 0.3s;
+        cursor: pointer;
+
+        &:hover {
+          background: var(--tertiary);
+          color: var(--btn-selected);
+        }
+      }
+
+      .btn-delete {
+        background-color: var(--btn-red);
+      }
+
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+      }
+    }
+  }
+
+  .headerCard {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+      h1 {
+        display: flex;
+        flex-direction: column;
+      }
+    }
   }
 
   @media screen and (max-width: 768px) {

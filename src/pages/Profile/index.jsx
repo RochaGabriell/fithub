@@ -42,6 +42,7 @@ const Profile = () => {
       url: '/account/profile/',
       method: 'get'
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -62,6 +63,7 @@ const Profile = () => {
       [name]: value
     }))
   }
+
   return (
     <Wrapper>
       <ToastContainer

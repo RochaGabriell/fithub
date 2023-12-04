@@ -11,7 +11,7 @@ const Measurements = () => {
       name: 'Medidas'
     },
     {
-      url: '/measurements/create',
+      url: '/measurements/form',
       name: 'Cadastrar medidas'
     },
     {
