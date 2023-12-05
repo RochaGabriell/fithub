@@ -1,9 +1,11 @@
-const ManFront = () => {
+import PropTypes from 'prop-types'
+
+const ManFront = ({ width, height, handleMuscle }) => {
   return (
-    <div>
+    <>
       <svg
-        width="260"
-        height="520"
+        width={width}
+        height={height}
         viewBox="0 0 321 720"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -207,8 +209,14 @@ const ManFront = () => {
           </g>
         </g>
       </svg>
-    </div>
+    </>
   )
+}
+
+ManFront.propTypes = {
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
+  handleMuscle: PropTypes.func
 }
 
 export default ManFront
