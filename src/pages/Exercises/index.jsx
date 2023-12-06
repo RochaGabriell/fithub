@@ -1,11 +1,11 @@
 import { ToastContainer, toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
-import Markdown from 'react-markdown'
 
 import useAxios from '../../hooks/useAxios'
 import Pagination from '../../components/Pagination'
 import ManFront from '../../components/MuscleAnatomy/ManFront'
 import ManBack from '../../components/MuscleAnatomy/ManBack'
+import ModalExercise from '../../components/ModalExercise'
 
 import {
   Header,
@@ -15,12 +15,13 @@ import {
   BoxExercise,
   WrapperImage,
   WrapperDescription,
+  ExerciseName,
+  ExerciseDescription,
   FormGroup,
   Input,
   ButtonSearch,
   Select,
-  Container,
-  MarkdownWrapper
+  Container
 } from './styles'
 
 // ?type_exercise=&difficulty=&muscles_primary=&equipment=
@@ -28,10 +29,15 @@ import {
 const Exercises = () => {
   const { response, error, execute } = useAxios(null)
   const [page, setPage] = useState(1)
+  const { response: responseExerciseId, execute: executeExerciseId } =
+    useAxios(null)
+  const [openModal, setOpenModal] = useState(false)
+  const handleOpenModal = () => setOpenModal(true)
+  const handleCloseModal = () => setOpenModal(false)
 
-  const handlePage = page => {
+  const handlePage = async page => {
     setPage(page)
-    execute({
+    await execute({
       url: `/exercise/exercise?page=${page}`,
       method: 'get'
     })
@@ -58,6 +64,14 @@ const Exercises = () => {
 
   console.log(response)
 
+  const handleExercise = async id => {
+    await executeExerciseId({
+      url: `/exercise/exercise/${id}`,
+      method: 'get'
+    })
+    handleOpenModal()
+  }
+
   return (
     <>
       <ToastContainer
@@ -73,7 +87,7 @@ const Exercises = () => {
         pauseOnHover
         theme="dark"
       />
-      <Container>
+      <Container $openModal={openModal}>
         <Header>
           <FormGroup>
             <Input type="text" id="id_search" name="search" />
@@ -126,7 +140,10 @@ const Exercises = () => {
         <MainContent>
           <Section>
             {response?.data?.results?.map(exercise => (
-              <BoxExercise key={exercise.id}>
+              <BoxExercise
+                key={exercise.id}
+                onClick={() => handleExercise(exercise.id)}
+              >
                 <WrapperImage>
                   <img
                     src={exercise.images[0].image}
@@ -134,48 +151,37 @@ const Exercises = () => {
                   />
                 </WrapperImage>
                 <WrapperDescription>
-                  <p>
-                    <strong>{exercise.name}</strong>
-                  </p>
-                  <p>
+                  <ExerciseName>{exercise.name}</ExerciseName>
+                  <ExerciseDescription>
                     <strong>Equipamento:</strong>
                     <span>
-                      {exercise.equipment.map(equipment => (
-                        <span key={equipment.id} style={{ marginLeft: '5px' }}>
-                          {equipment.name}
-                        </span>
-                      ))}
+                      {exercise.equipment.length === 0
+                        ? 'Sem equipamento'
+                        : exercise.equipment.map(equipment => (
+                            <span key={equipment.id}>{equipment.name}</span>
+                          ))}
                     </span>
-                  </p>
-                  <p>
+                  </ExerciseDescription>
+                  <ExerciseDescription>
                     <strong>Músculos primários:</strong>
                     <span>
                       {exercise.muscles_primary.map(muscle_primary => (
-                        <span
-                          key={muscle_primary.id}
-                          style={{ marginLeft: '5px' }}
-                        >
+                        <span key={muscle_primary.id}>
                           {muscle_primary.name}
                         </span>
                       ))}
                     </span>
-                  </p>
-                  <p>
+                  </ExerciseDescription>
+                  <ExerciseDescription>
                     <strong> Músculos secundários:</strong>
-                    <span>
+                    <span className="muscles_secondary">
                       {exercise.muscles_secondary.map(muscle_secondary => (
-                        <span
-                          key={muscle_secondary.id}
-                          style={{ marginLeft: '5px' }}
-                        >
+                        <span key={muscle_secondary.id}>
                           {muscle_secondary.name}
                         </span>
                       ))}
                     </span>
-                  </p>
-                  {/* <MarkdownWrapper>
-                    <Markdown>{exercise.instructions}</Markdown>
-                  </MarkdownWrapper> */}
+                  </ExerciseDescription>
                 </WrapperDescription>
               </BoxExercise>
             ))}
@@ -201,6 +207,13 @@ const Exercises = () => {
 
         <Pagination page={page} handlePage={handlePage} response={response} />
       </Container>
+
+      <ModalExercise
+        openModal={openModal}
+        handleCloseModal={handleCloseModal}
+        responseExerciseId={responseExerciseId}
+        handleExercise={handleExercise}
+      />
     </>
   )
 }

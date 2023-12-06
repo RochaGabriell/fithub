@@ -58,16 +58,34 @@ const BoxExercise = styled.div`
   background-color: var(--tertiary);
   border-radius: 1rem;
   padding: 10px;
-  height: 110px;
+  height: 120px;
   color: var(--primary);
+  cursor: pointer;
+
+  &:hover {
+    transition: 0.3s;
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem;
+  }
 `
 
 const WrapperImage = styled.div`
   display: flex;
   width: 100px;
+  height: 100px;
 
   img {
     width: 100%;
+    height: 100%;
+    min-width: 85px;
     border-radius: 1rem;
     object-fit: cover;
   }
@@ -78,7 +96,58 @@ const WrapperDescription = styled.div`
   flex-direction: column;
   gap: 5px;
   padding: 0 10px;
+  width: 90%;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+`
+
+const ExerciseName = styled.h3`
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid var(--primary);
   width: 100%;
+
+  @media screen and (max-width: 768px) {
+    font-size: 0.7rem;
+  }
+`
+
+const ExerciseDescription = styled.p`
+  font-size: 0.9rem;
+  display: flex;
+  width: 100%;
+  gap: 0.3rem;
+
+  /* De um elemento para o outro é colocado um divisor */
+  span > span {
+    &::before {
+      content: '|';
+      margin: 0 0.3rem;
+    }
+  }
+
+  .muscles_secondary {
+    display: inline-block;
+    width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 0.6rem;
+    flex-direction: column;
+
+    .muscles_secondary {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
 `
 
 const FormGroup = styled.div`
@@ -126,51 +195,9 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   padding: 0 10px;
-`
 
-const MarkdownWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: var(--tertiary);
-  color: var(--secondary);
-  border-radius: 8px;
-  height: 50px;
-
-  h1 {
-    font-size: 24px;
-    margin-bottom: 15 px;
-  }
-
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: 20px;
-    margin-bottom: 8px;
-  }
-
-  p {
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 16px;
-    text-align: justify;
-  }
-
-  ul,
-  ol {
-    margin-bottom: 16px;
-    padding-left: 20px;
-  }
-
-  li {
-    font-size: 16px;
-    line-height: 1.5;
-
-    p {
-      margin-bottom: 8px;
-    }
-  }
+  opacity: ${({ $openModal }) => ($openModal ? '0.5' : '1')};
+  pointer-events: ${({ $openModal }) => ($openModal ? 'none' : 'auto')};
 `
 
 export {
@@ -181,10 +208,11 @@ export {
   BoxExercise,
   WrapperImage,
   WrapperDescription,
+  ExerciseName,
+  ExerciseDescription,
   FormGroup,
   Input,
   ButtonSearch,
   Select,
-  Container,
-  MarkdownWrapper
+  Container
 }

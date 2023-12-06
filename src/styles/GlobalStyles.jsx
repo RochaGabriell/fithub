@@ -30,6 +30,24 @@ const GlobalStyle = createGlobalStyle`
     --quaternary: #ACB1C6;
     --btn-selected: #195BDA;
     --btn-red: #E8265E;
+
+    --dif-beginner: #74e826;
+    --dif-intermediate: #e8c826;
+    --dif-advanced: #e82626;
+  }
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--tertiary);
+    border-radius: 4px;
   }
 `
 
