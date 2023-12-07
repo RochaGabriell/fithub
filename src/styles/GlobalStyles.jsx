@@ -31,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
     --btn-selected: #195BDA;
     --btn-red: #E8265E;
 
-    --dif-beginner: #74e826;
+    --dif-beginner: #17ee3b;
     --dif-intermediate: #e8c826;
     --dif-advanced: #e82626;
   }

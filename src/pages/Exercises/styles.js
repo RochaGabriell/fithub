@@ -103,12 +103,19 @@ const WrapperDescription = styled.div`
   }
 `
 
+const WrapperTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+`
+
 const ExerciseName = styled.h3`
   font-size: 1.1rem;
   font-weight: bold;
   text-align: center;
+  padding-bottom: 0.3rem;
   border-bottom: 1px solid var(--primary);
-  width: 100%;
 
   @media screen and (max-width: 768px) {
     font-size: 0.7rem;
@@ -150,7 +157,7 @@ const ExerciseDescription = styled.p`
   }
 `
 
-const FormGroup = styled.div`
+const FormGroup = styled.form`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -206,6 +213,7 @@ export {
   Section,
   AsideSearch,
   BoxExercise,
+  WrapperTitle,
   WrapperImage,
   WrapperDescription,
   ExerciseName,

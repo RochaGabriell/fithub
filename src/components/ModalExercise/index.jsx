@@ -1,210 +1,24 @@
 import PropTypes from 'prop-types'
 import Markdown from 'react-markdown'
 
-import styled from 'styled-components'
+import Calisthenics from '../../assets/TypeExercise/calisthenics.svg'
+import Cardio from '../../assets/TypeExercise/cardio.svg'
+import Stretching from '../../assets/TypeExercise/stretching.svg'
+import Strength from '../../assets/TypeExercise/strength.svg'
 
-const Container = styled.div`
-  display: ${({ $openModal }) => ($openModal ? 'block' : 'none')};
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60%;
-  height: 85%;
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 20px;
-  z-index: 1000;
-  overflow-y: scroll;
-  background-color: var(--secondary);
-  box-shadow: 0 0 10px var(--tertiary);
-
-  &::-webkit-scrollbar {
-    background-color: transparent;
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--tertiary);
-    border-radius: 4px;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-    color: var(--tertiary);
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  @media (max-width: 768px) {
-    width: 90%;
-    height: 90%;
-    padding: 10px;
-  }
-`
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-
-  h1 {
-    font-size: 2rem;
-    color: var(--tertiary);
-  }
-`
-
-const ButtonCloseModal = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  background-color: var(--tertiary);
-  color: var(--secondary);
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background-color: var(--btn-red);
-    color: var(--tertiary);
-  }
-`
-
-const ContainerModal = styled.div`
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-`
-
-const ModalImage = styled.div`
-  display: flex;
-  width: 300px;
-  height: 300px;
-
-  img {
-    width: 100%;
-    height: 100%;
-    min-width: 85px;
-    border-radius: 1rem;
-    object-fit: cover;
-  }
-`
-
-const WrapperDescriptionModal = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`
-
-const ExerciseDescriptionModal = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-`
-
-const Difficulty = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  height: 30px;
-  background-color: var(--btn-red);
-  color: var(--secondary);
-  border-radius: 5px;
-`
-
-const WrapperVariation = styled.div`
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-
-  span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 30px;
-    background-color: var(--btn-red);
-    color: var(--secondary);
-    border-radius: 5px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: var(--tertiary);
-      color: var(--secondary);
-    }
-  }
-`
-
-const MarkdownWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: var(--tertiary);
-  color: var(--secondary);
-  border-radius: 8px;
-  height: 300px;
-  padding: 10px;
-  overflow-y: scroll;
-  margin-bottom: 20px;
-
-  &::-webkit-scrollbar {
-    background-color: transparent;
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--secondary);
-    border-radius: 4px;
-    border: 1px solid var(--tertiary);
-  }
-
-  h1 {
-    font-size: 24px;
-    margin-bottom: 15 px;
-  }
-
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: 20px;
-    margin-bottom: 8px;
-  }
-
-  p {
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 16px;
-    text-align: justify;
-  }
-
-  ul,
-  ol {
-    margin-bottom: 16px;
-    padding-left: 20px;
-  }
-
-  li {
-    font-size: 16px;
-    line-height: 1.5;
-
-    p {
-      margin-bottom: 8px;
-    }
-  }
-`
+import {
+  Container,
+  Header,
+  ImageTypeExercise,
+  ButtonCloseModal,
+  ContainerModal,
+  ModalImage,
+  WrapperDescriptionModal,
+  ExerciseDescriptionModal,
+  Difficulty,
+  WrapperVariation,
+  MarkdownWrapper
+} from './styles'
 
 const ModalExercise = ({
   openModal,
@@ -228,6 +42,17 @@ const ModalExercise = ({
           gap: '10px'
         }}
       >
+        <ImageTypeExercise>
+          {responseExerciseId?.data?.type_exercise === 1 ? (
+            <img src={Cardio} alt="Cardio" />
+          ) : responseExerciseId?.data?.type_exercise === 2 ? (
+            <img src={Strength} alt="Força" />
+          ) : responseExerciseId?.data?.type_exercise === 3 ? (
+            <img src={Stretching} alt="Alongamento" />
+          ) : responseExerciseId?.data?.type_exercise === 4 ? (
+            <img src={Calisthenics} alt="Calisténico" />
+          ) : null}
+        </ImageTypeExercise>
         <h1>{responseExerciseId?.data?.name}</h1>
         <ButtonCloseModal onClick={handleCloseModal}>X</ButtonCloseModal>
       </Header>
@@ -275,36 +100,40 @@ const ModalExercise = ({
           </ExerciseDescriptionModal>
           <ExerciseDescriptionModal>
             <strong>Dificuldade</strong>
-            <Difficulty
-              style={{
-                backgroundColor:
-                  responseExerciseId?.data?.difficulty === 1
-                    ? 'var(--dif-beginner)'
-                    : 'var(--tertiary)'
-              }}
-            >
-              Principiante
-            </Difficulty>
-            <Difficulty
-              style={{
-                backgroundColor:
-                  responseExerciseId?.data?.difficulty === 3
-                    ? 'var(--dif-intermediate)'
-                    : 'var(--tertiary)'
-              }}
-            >
-              Intermediário
-            </Difficulty>
-            <Difficulty
-              style={{
-                backgroundColor:
-                  responseExerciseId?.data?.difficulty === 2
-                    ? 'var(--dif-advanced)'
-                    : 'var(--tertiary)'
-              }}
-            >
-              Avançado
-            </Difficulty>
+            {responseExerciseId?.data?.difficulty === 1 ? (
+              <Difficulty
+                style={{
+                  backgroundColor:
+                    responseExerciseId?.data?.difficulty === 1
+                      ? 'var(--dif-beginner)'
+                      : 'var(--tertiary)'
+                }}
+              >
+                Principiante
+              </Difficulty>
+            ) : responseExerciseId?.data?.difficulty === 3 ? (
+              <Difficulty
+                style={{
+                  backgroundColor:
+                    responseExerciseId?.data?.difficulty === 3
+                      ? 'var(--dif-intermediate)'
+                      : 'var(--tertiary)'
+                }}
+              >
+                Intermediário
+              </Difficulty>
+            ) : responseExerciseId?.data?.difficulty === 2 ? (
+              <Difficulty
+                style={{
+                  backgroundColor:
+                    responseExerciseId?.data?.difficulty === 2
+                      ? 'var(--dif-advanced)'
+                      : 'var(--tertiary)'
+                }}
+              >
+                Avançado
+              </Difficulty>
+            ) : null}
           </ExerciseDescriptionModal>
         </WrapperDescriptionModal>
       </ContainerModal>
@@ -329,7 +158,7 @@ const ModalExercise = ({
 ModalExercise.propTypes = {
   openModal: PropTypes.bool.isRequired,
   handleCloseModal: PropTypes.func.isRequired,
-  responseExerciseId: PropTypes.object.isRequired,
+  responseExerciseId: PropTypes.object,
   handleExercise: PropTypes.func.isRequired
 }
 
