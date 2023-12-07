@@ -18,8 +18,8 @@ import {
 } from './styles'
 
 import Logo from '../../assets/Logo - Light.svg'
-import Calculator from '../../assets/NavBar/Calculator.svg'
-import HomeIcon from '../../assets/NavBar/Home.svg'
+// import Calculator from '../../assets/NavBar/Calculator.svg'
+// import HomeIcon from '../../assets/NavBar/Home.svg'
 import Login from '../../assets/NavBar/Login.svg'
 import Muscle from '../../assets/NavBar/Muscle.svg'
 import Register from '../../assets/NavBar/Register.svg'
@@ -30,11 +30,11 @@ import { AuthContext } from '../../context/AuthContext'
 const Sidebar = ({ isopen, toggleSidebar }) => {
   const { user, logoutUser } = useContext(AuthContext)
   const navItems = [
-    {
-      name: 'Home',
-      icon: HomeIcon,
-      link: '/'
-    },
+    // {
+    //   name: 'Home',
+    //   icon: HomeIcon,
+    //   link: '/'
+    // },
     {
       name: 'Treinos',
       icon: Dumbbells,
@@ -45,11 +45,11 @@ const Sidebar = ({ isopen, toggleSidebar }) => {
       icon: Muscle,
       link: '/exercises'
     },
-    {
-      name: 'Ferramentas',
-      icon: Calculator,
-      link: '/tools'
-    },
+    // {
+    //   name: 'Ferramentas',
+    //   icon: Calculator,
+    //   link: '/tools'
+    // },
     {
       name: 'Sobre',
       icon: About,

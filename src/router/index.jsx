@@ -3,10 +3,10 @@ import { createBrowserRouter } from 'react-router-dom'
 import Base from '../layouts/Base'
 import Login from '../pages/Auth/Login'
 import Register from '../pages/Auth/Register'
-import Home from '../pages/Home'
+// import Home from '../pages/Home'
 import Workouts from '../pages/Workouts'
 import Exercises from '../pages/Exercises'
-import Tools from '../pages/Tools'
+// import Tools from '../pages/Tools'
 import Profile from '../pages/Profile'
 
 import Measurements from '../pages/Measurements'
@@ -34,7 +34,7 @@ const routes = createBrowserRouter([
         children: [
           {
             path: '/',
-            element: <Home />
+            element: <Exercises />
           },
           {
             path: '/workouts',
@@ -44,10 +44,10 @@ const routes = createBrowserRouter([
             path: '/exercises',
             element: <Exercises />
           },
-          {
-            path: '/tools',
-            element: <Tools />
-          },
+          // {
+          //   path: '/tools',
+          //   element: <Tools />
+          // },
           {
             path: '/profile',
             element: <Profile />
@@ -55,7 +55,7 @@ const routes = createBrowserRouter([
           {
             path: '/measurements',
             element: <Measurements />,
-            children: [
+            children: [ 
               {
                 path: '/measurements',
                 element: <MyMeasurements />
