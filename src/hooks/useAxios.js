@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 import api from '../services/api'
 import '../middlewares/axiosConfig'
+import '../middlewares/axiosError'
 
 function useAxios(initialAxiosParams = null) {
   const [axiosParams, setAxiosParams] = useState(initialAxiosParams)

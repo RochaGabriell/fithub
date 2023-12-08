@@ -18,6 +18,7 @@ import {
   MainContent,
   Section,
   AsideSearch,
+  HeaderAside,
   BoxExercise,
   WrapperTitle,
   WrapperImage,
@@ -31,8 +32,6 @@ import {
   Container
 } from './styles'
 
-// ?type_exercise=&difficulty=&muscles_primary=&equipment=
-// ?search=
 const Exercises = () => {
   const { response, error, loading, execute } = useAxios(null)
   const [page, setPage] = useState(1)
@@ -53,6 +52,7 @@ const Exercises = () => {
   const [openModal, setOpenModal] = useState(false)
   const handleOpenModal = () => setOpenModal(true)
   const handleCloseModal = () => setOpenModal(false)
+  const [prevMuscle, setPrevMuscle] = useState('')
 
   const handlePage = async page => {
     setPage(page)
@@ -164,6 +164,14 @@ const Exercises = () => {
           ? `&equipment=${e.target.equipment.value}`
           : ''
       }`,
+      method: 'get'
+    })
+  }
+
+  const handleMuscle = async id => {
+    setMusclesPrimary(id)
+    await execute({
+      url: `/exercise/exercise?${id !== '' ? `muscles_primary=${id}` : ''}`,
       method: 'get'
     })
   }
@@ -305,8 +313,15 @@ const Exercises = () => {
           </Section>
 
           <AsideSearch>
-            <h1>Buscar Exercícios</h1>
-            <form action="">
+            <HeaderAside>
+              <h2>Buscando pelo músculo:</h2>
+              {responseMuscles?.data?.map(muscle =>
+                muscle.id === parseInt(musclesPrimary) ? (
+                  <span key={muscle.id}>{muscle.name}</span>
+                ) : null
+              )}
+            </HeaderAside>
+            <div>
               <div
                 style={{
                   display: 'flex',
@@ -315,10 +330,24 @@ const Exercises = () => {
                   justifyContent: 'center'
                 }}
               >
-                <ManFront width={'80%'} height={'100%'} />
-                <ManBack width={'80%'} height={'100%'} />
+                <ManFront
+                  width={'80%'}
+                  height={'100%'}
+                  musclesPrimary={musclesPrimary}
+                  handleMuscle={handleMuscle}
+                  prevMuscle={prevMuscle}
+                  setPrevMuscle={setPrevMuscle}
+                />
+                <ManBack
+                  width={'80%'}
+                  height={'100%'}
+                  musclesPrimary={musclesPrimary}
+                  handleMuscle={handleMuscle}
+                  prevMuscle={prevMuscle}
+                  setPrevMuscle={setPrevMuscle}
+                />
               </div>
-            </form>
+            </div>
           </AsideSearch>
         </MainContent>
 

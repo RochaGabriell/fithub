@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -102,4 +103,51 @@ const SheetWorkout = styled.div`
   }
 `
 
-export { Container, Header, Main, SheetWorkout }
+const Button = styled(Link)`
+  background-color: var(--btn-selected);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  color: var(--tertiary);
+  font-weight: bold;
+  transition: 0.3s;
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--tertiary);
+    color: var(--primary);
+  }
+`
+
+const ButtonSearch = styled.button`
+  background-color: var(--btn-selected);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  color: var(--tertiary);
+  font-weight: bold;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: var(--tertiary);
+    color: var(--primary);
+  }
+`
+
+const FormGroup = styled.form`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0 0.5rem;
+`
+
+const Select = styled.select`
+  width: 180px;
+  height: 2rem;
+  border-radius: 5px;
+  border: 1px solid var(--tertiary);
+  padding: 0 0.5rem;
+`
+
+export { Container, Header, Main, SheetWorkout, Button, ButtonSearch, FormGroup, Select }

@@ -101,11 +101,16 @@ const ContainerModal = styled.div`
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 
 const ModalImage = styled.div`
   display: flex;
   width: 300px;
+  max-width: 100%;
   height: 300px;
 
   img {
@@ -127,6 +132,18 @@ const ExerciseDescriptionModal = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+
+  span > span {
+    &::before {
+      content: '|';
+      margin: 0 0.3rem;
+    }
+  }
+
+  .muscles_secondary {
+    display: flex;
+    flex-wrap: wrap;
+  }
 `
 
 const Difficulty = styled.span`
@@ -144,18 +161,18 @@ const WrapperVariation = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 20px;
 
   span {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 30px;
+    min-height: 30px;
     background-color: var(--btn-selected);
     color: var(--secondary);
     border-radius: 5px;
     cursor: pointer;
+    padding: 1rem 0.5rem;
 
     &:hover {
       background-color: var(--tertiary);

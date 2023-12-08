@@ -6,7 +6,16 @@ import Pagination from '../../components/Pagination'
 import ModalExercise from '../../components/ModalExercise'
 import ModalWorkoutDay from '../../components/ModalWorkoutDay'
 
-import { Container, Header, Main, SheetWorkout } from './styles'
+import {
+  Container,
+  Header,
+  Main,
+  SheetWorkout,
+  Button,
+  ButtonSearch,
+  FormGroup,
+  Select
+} from './styles'
 import ModalDayExercise from '../../components/ModalDayExercise'
 
 const Workouts = () => {
@@ -137,38 +146,52 @@ const Workouts = () => {
       <Container $openModal={openModal || openModalWorkoutDay}>
         <Header>
           <h1>Fichas de treino</h1>
+          <Button to="/workouts/create">Criar ficha de treino</Button>
+
+          <FormGroup>
+            <Select name="visibility" id="visibility" defaultValue="">
+              <option value="">Visibilidade</option>
+              <option value="public">Público</option>
+              <option value="private">Privado</option>
+            </Select>
+            <Select name="difficulty" id="id_difficulty" defaultValue="">
+              <option value="">Dificuldade</option>
+              <option value="1">Iniciante</option>
+              <option value="2">Intermediário</option>
+              <option value="3">Avançado</option>
+            </Select>
+          </FormGroup>
+          <ButtonSearch type="submit">Enviar</ButtonSearch>
         </Header>
         <Main>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => {
-            return response?.data?.results?.map(sheet => (
-              <SheetWorkout
-                key={sheet.id}
-                onClick={() => handleWorkout(sheet.id)}
-              >
+          {response?.data?.results?.map(sheet => (
+            <SheetWorkout
+              key={sheet.id}
+              onClick={() => handleWorkout(sheet.id)}
+            >
+              <div>
+                <h2>{sheet.name}</h2>
                 <div>
-                  <h2>{sheet.name}</h2>
-                  <div>
-                    <p
-                      style={
-                        sheet?.difficulty === 1
-                          ? { backgroundColor: '#1eb738' }
-                          : sheet?.difficulty === 3
-                          ? { backgroundColor: '#bda21b' }
-                          : sheet?.difficulty === 2
-                          ? { backgroundColor: 'var(--dif-advanced)' }
-                          : null
-                      }
-                    >
-                      {difficulty[sheet.difficulty]}
-                    </p>
-                    <p>{sheet.public ? 'Público' : 'Privado'}</p>
-                    <p>{sheet.default ? 'Padrão' : 'Não padrão'}</p>
-                  </div>
+                  <p
+                    style={
+                      sheet?.difficulty === 1
+                        ? { backgroundColor: '#1eb738' }
+                        : sheet?.difficulty === 3
+                        ? { backgroundColor: '#bda21b' }
+                        : sheet?.difficulty === 2
+                        ? { backgroundColor: 'var(--dif-advanced)' }
+                        : null
+                    }
+                  >
+                    {difficulty[sheet.difficulty]}
+                  </p>
+                  <p>{sheet.public ? 'Público' : 'Privado'}</p>
+                  <p>{sheet.default ? 'Padrão' : 'Não padrão'}</p>
                 </div>
-                <p>{sheet.description}</p>
-              </SheetWorkout>
-            ))
-          })}
+              </div>
+              <p>{sheet.description}</p>
+            </SheetWorkout>
+          ))}
         </Main>
         <Pagination page={page} handlePage={handlePage} response={response} />
       </Container>

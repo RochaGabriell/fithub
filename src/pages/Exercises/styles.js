@@ -45,12 +45,33 @@ const AsideSearch = styled.aside`
   align-items: center;
   gap: 10px;
   color: black;
-  padding: 1rem 2rem;
   border-radius: 1rem;
 
   @media screen and (max-width: 768px) {
     display: none;
   }
+`
+
+const HeaderAside = styled.header`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  background-color: var(--btn-selected);
+  border-radius: 1rem 1rem 0 0;
+  padding: 1rem ;
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  span {
+    font-size: 1rem;
+  }
+
 `
 
 const BoxExercise = styled.div`
@@ -212,6 +233,7 @@ export {
   MainContent,
   Section,
   AsideSearch,
+  HeaderAside,
   BoxExercise,
   WrapperTitle,
   WrapperImage,
