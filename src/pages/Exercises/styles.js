@@ -7,10 +7,11 @@ const Header = styled.header`
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  height: 3rem;
+  /* height: 3rem; */
   margin-bottom: 0.7rem;
   border-radius: 5px;
   border: 1px solid var(--tertiary);
+  padding: 0.8rem 0;
 
   @media screen and (max-width: 1024px) {
     flex-direction: column;
@@ -24,6 +25,11 @@ const MainContent = styled.main`
   display: flex;
   flex-direction: row;
   gap: 10px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
 `
 
 const Section = styled.section`
@@ -48,7 +54,20 @@ const AsideSearch = styled.aside`
   border-radius: 1rem;
 
   @media screen and (max-width: 768px) {
-    display: none;
+    width: 100%;
+  }
+`
+
+const WrapperMuscleAnatomy = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
   }
 `
 
@@ -61,7 +80,7 @@ const HeaderAside = styled.header`
   width: 100%;
   background-color: var(--btn-selected);
   border-radius: 1rem 1rem 0 0;
-  padding: 1rem ;
+  padding: 1rem;
 
   h2 {
     font-size: 1.2rem;
@@ -71,7 +90,6 @@ const HeaderAside = styled.header`
   span {
     font-size: 1rem;
   }
-
 `
 
 const BoxExercise = styled.div`
@@ -233,6 +251,7 @@ export {
   MainContent,
   Section,
   AsideSearch,
+  WrapperMuscleAnatomy,
   HeaderAside,
   BoxExercise,
   WrapperTitle,

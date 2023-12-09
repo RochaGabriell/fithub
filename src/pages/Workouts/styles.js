@@ -137,7 +137,7 @@ const FormGroup = styled.form`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0 0.5rem;
 `
@@ -150,4 +150,13 @@ const Select = styled.select`
   padding: 0 0.5rem;
 `
 
-export { Container, Header, Main, SheetWorkout, Button, ButtonSearch, FormGroup, Select }
+export {
+  Container,
+  Header,
+  Main,
+  SheetWorkout,
+  Button,
+  ButtonSearch,
+  FormGroup,
+  Select
+}

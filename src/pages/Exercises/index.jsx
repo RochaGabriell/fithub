@@ -18,6 +18,7 @@ import {
   MainContent,
   Section,
   AsideSearch,
+  WrapperMuscleAnatomy,
   HeaderAside,
   BoxExercise,
   WrapperTitle,
@@ -52,7 +53,6 @@ const Exercises = () => {
   const [openModal, setOpenModal] = useState(false)
   const handleOpenModal = () => setOpenModal(true)
   const handleCloseModal = () => setOpenModal(false)
-  const [prevMuscle, setPrevMuscle] = useState('')
 
   const handlePage = async page => {
     setPage(page)
@@ -169,11 +169,11 @@ const Exercises = () => {
   }
 
   const handleMuscle = async id => {
-    setMusclesPrimary(id)
     await execute({
       url: `/exercise/exercise?${id !== '' ? `muscles_primary=${id}` : ''}`,
       method: 'get'
     })
+    setMusclesPrimary(id)
   }
 
   return (
@@ -321,33 +321,20 @@ const Exercises = () => {
                 ) : null
               )}
             </HeaderAside>
-            <div>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <ManFront
-                  width={'80%'}
-                  height={'100%'}
-                  musclesPrimary={musclesPrimary}
-                  handleMuscle={handleMuscle}
-                  prevMuscle={prevMuscle}
-                  setPrevMuscle={setPrevMuscle}
-                />
-                <ManBack
-                  width={'80%'}
-                  height={'100%'}
-                  musclesPrimary={musclesPrimary}
-                  handleMuscle={handleMuscle}
-                  prevMuscle={prevMuscle}
-                  setPrevMuscle={setPrevMuscle}
-                />
-              </div>
-            </div>
+            <WrapperMuscleAnatomy>
+              <ManFront
+                width={'80%'}
+                height={'100%'}
+                musclesPrimary={musclesPrimary}
+                handleMuscle={handleMuscle}
+              />
+              <ManBack
+                width={'80%'}
+                height={'100%'}
+                musclesPrimary={musclesPrimary}
+                handleMuscle={handleMuscle}
+              />
+            </WrapperMuscleAnatomy>
           </AsideSearch>
         </MainContent>
 

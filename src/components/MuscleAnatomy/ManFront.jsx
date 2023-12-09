@@ -1,20 +1,10 @@
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 
-const ManFront = ({
-  width,
-  height,
-  musclesPrimary,
-  handleMuscle,
-  prevMuscle,
-  setPrevMuscle
-}) => {
-  console.log('prevMuscle', prevMuscle)
-  console.log('musclesPrimary', musclesPrimary)
-
+const ManFront = ({ width, height, musclesPrimary, handleMuscle }) => {
   const handleMuscleGroup = e => {
     if (!musclesPrimary) {
-      handleMuscle(e.target.parentNode.id)
+      handleMuscle(e.target.parentNode.classList[0])
     } else {
       handleMuscle('')
     }
@@ -22,13 +12,17 @@ const ManFront = ({
 
   const handleMouseOver = e => {
     const ids = e.target.parentNode.childNodes
+
     ids.forEach(id => {
       id.style.fill = 'var(--btn-selected)'
     })
   }
 
   const handleMouseOut = e => {
-    if (!musclesPrimary || musclesPrimary !== e.target.parentNode.id) {
+    if (
+      !musclesPrimary ||
+      musclesPrimary !== e.target.parentNode.classList[0]
+    ) {
       const ids = e.target.parentNode.childNodes
       ids.forEach(id => {
         id.style.fill = '#BF4242'
@@ -37,25 +31,28 @@ const ManFront = ({
   }
 
   useEffect(() => {
-    const ids = document.getElementById(musclesPrimary)
-    setPrevMuscle(musclesPrimary)
+    const ids = document.getElementsByClassName(musclesPrimary)
+    const ids2 = document.getElementById('Body_male_front')
 
-    if (ids) {
-      ids.childNodes.forEach(id => {
-        id.style.fill = 'var(--btn-selected)'
-      })
-    }
+    if (ids.length > 0) {
+      const cont = ids.length - 1
 
-    if (prevMuscle) {
-      const prevIds = document.getElementById(prevMuscle)
-      if (prevIds) {
-        prevIds.childNodes.forEach(id => {
-          id.style.fill = '#BF4242'
+      for (let i = 0; i <= cont; i++) {
+        ids[i].childNodes.forEach(id => {
+          id.style.fill = 'var(--btn-selected)'
         })
       }
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    ids2.childNodes.forEach(classG => {
+      classG.classList.forEach(classG2 => {
+        if (classG2 !== musclesPrimary) {
+          classG.childNodes.forEach(id => {
+            id.style.fill = '#BF4242'
+          })
+        }
+      })
+    })
   }, [musclesPrimary])
 
   return (
@@ -79,7 +76,7 @@ const ManFront = ({
           </g>
           <g id="Body_male_front" style={{ cursor: 'pointer' }}>
             <g
-              id="1"
+              className="1"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -96,7 +93,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="3"
+              className="3"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -113,7 +110,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="4"
+              className="4"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -140,24 +137,24 @@ const ManFront = ({
               />
             </g>
             <g
-              id="2"
+              className="2"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
             >
               <path
-                id="flexoresDedos"
+                id="flexoresSuperficiais"
                 d="M68.8795 271.909C68.8795 271.909 69.4717 269.717 71.4601 268.684C73.4769 267.634 77.9118 263.28 77.9118 263.28C77.9118 263.28 82.7506 270.376 92.5894 275.376C92.5894 275.376 92.912 295.86 88.7184 304.086C84.5248 312.312 73.584 349.57 73.584 349.57C73.584 349.57 64.4459 351.654 58.6639 351.076C54.3632 350.646 52.4277 349.57 52.4277 349.57C52.4277 349.57 55.0084 333.441 56.9439 327.635C58.8794 321.828 71.6214 290.942 68.8795 271.909Z"
                 fill="#BF4242"
               />
               <path
-                id="flexoresDedos_2"
+                id="flexoresSuperficiais_2"
                 d="M259.064 271.909C259.064 271.909 258.472 269.717 256.484 268.684C254.467 267.634 250.032 263.28 250.032 263.28C250.032 263.28 245.193 270.376 235.354 275.376C235.354 275.376 235.032 295.86 239.225 304.086C243.419 312.312 254.36 349.57 254.36 349.57C254.36 349.57 263.498 351.654 269.28 351.076C273.581 350.646 275.516 349.57 275.516 349.57C275.516 349.57 272.935 333.441 271 327.635C269.064 321.828 256.322 290.942 259.064 271.909Z"
                 fill="#BF4242"
               />
             </g>
             <g
-              id="17"
+              className="17"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -174,7 +171,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="14"
+              className="14"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -201,7 +198,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="5"
+              className="5"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -248,7 +245,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="6"
+              className="6"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -265,7 +262,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="16"
+              className="16"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -282,7 +279,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="13"
+              className="13"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -299,7 +296,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="8"
+              className="8"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -316,7 +313,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="11"
+              className="11"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -333,7 +330,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="12"
+              className="12"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -350,7 +347,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="7"
+              className="7"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -367,7 +364,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="9"
+              className="9"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -384,7 +381,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="10"
+              className="10"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -401,7 +398,7 @@ const ManFront = ({
               />
             </g>
             <g
-              id="15"
+              className="15"
               onClick={e => handleMuscleGroup(e)}
               onMouseOver={e => handleMouseOver(e)}
               onMouseOut={e => handleMouseOut(e)}
@@ -428,9 +425,7 @@ ManFront.propTypes = {
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
   musclesPrimary: PropTypes.any,
-  handleMuscle: PropTypes.func,
-  prevMuscle: PropTypes.any,
-  setPrevMuscle: PropTypes.func
+  handleMuscle: PropTypes.func
 }
 
 export default ManFront
