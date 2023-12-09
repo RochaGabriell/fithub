@@ -24,13 +24,17 @@ const Workouts = () => {
     useAxios(null)
   const { response: responseDayExercise, execute: executeDayExercise } =
     useAxios(null)
+  const { response: responseDifficulty, execute: executeDifficulty } =
+    useAxios(null)
   const [page, setPage] = useState(1)
   const [workoutDays, setWorkoutDays] = useState([])
   const [dayExercises, setDayExercises] = useState([])
-  const difficulty = {
-    1: 'Iniciante',
+  const [visibility, setVisibility] = useState('')
+  const [difficulty, setDifficulty] = useState('')
+  const difficultyObj = {
+    1: 'Princiante',
     3: 'Intermediário',
-    2: 'Avançado'
+    2: 'Especialista'
   }
 
   const { response: responseExerciseId, execute: executeExerciseId } =
@@ -60,6 +64,10 @@ const Workouts = () => {
       url: `/manager/day_exercise/`,
       method: 'get'
     })
+    executeDifficulty({
+      url: '/exercise/difficulty',
+      method: 'get'
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -87,7 +95,9 @@ const Workouts = () => {
   const handlePage = async page => {
     setPage(page)
     await execute({
-      url: `/manager/workout?page=${page}`,
+      url: `/manager/workout?
+      ${difficulty !== '' ? `difficulty=${difficulty}` : ''}
+      ${visibility !== '' ? `&public=${visibility}` : ''}&page=${page}`,
       method: 'get'
     })
   }
@@ -127,6 +137,25 @@ const Workouts = () => {
     }
   }
 
+  const handleFilter = async e => {
+    e.preventDefault()
+    setDifficulty(e.target.difficulty.value)
+    setVisibility(e.target.visibility.value)
+
+    await execute({
+      url: `/manager/workout?${
+        e.target.difficulty.value !== ''
+          ? `difficulty=${e.target.difficulty.value}`
+          : ''
+      }${
+        e.target.visibility.value !== ''
+          ? `&public=${e.target.difficulty.value}`
+          : ''
+      }`,
+      method: 'get'
+    })
+  }
+
   return (
     <>
       <ToastContainer
@@ -148,20 +177,22 @@ const Workouts = () => {
           <h1>Fichas de treino</h1>
           <Button to="/workouts/create">Criar ficha de treino</Button>
 
-          <FormGroup>
+          <FormGroup onSubmit={handleFilter}>
             <Select name="visibility" id="visibility" defaultValue="">
               <option value="">Visibilidade</option>
-              <option value="public">Público</option>
-              <option value="private">Privado</option>
+              <option value="true">Público</option>
+              <option value="false">Privado</option>
             </Select>
             <Select name="difficulty" id="id_difficulty" defaultValue="">
               <option value="">Dificuldade</option>
-              <option value="1">Iniciante</option>
-              <option value="2">Intermediário</option>
-              <option value="3">Avançado</option>
+              {responseDifficulty?.data?.map(difficulty => (
+                <option key={difficulty.id} value={difficulty.id}>
+                  {difficulty.name}
+                </option>
+              ))}
             </Select>
+            <ButtonSearch type="submit">Enviar</ButtonSearch>
           </FormGroup>
-          <ButtonSearch type="submit">Enviar</ButtonSearch>
         </Header>
         <Main>
           {response?.data?.results?.map(sheet => (
@@ -183,7 +214,7 @@ const Workouts = () => {
                         : null
                     }
                   >
-                    {difficulty[sheet.difficulty]}
+                    {difficultyObj[sheet.difficulty]}
                   </p>
                   <p>{sheet.public ? 'Público' : 'Privado'}</p>
                   <p>{sheet.default ? 'Padrão' : 'Não padrão'}</p>
