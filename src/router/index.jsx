@@ -9,6 +9,7 @@ import Exercises from '../pages/Exercises'
 
 import FormWorkoutPage from '../pages/FormWorkoutPage'
 import WorkoutForm from '../components/WorkoutForm'
+import WorkoutDayForm from '../components/WorkoutDayForm'
 
 // import Tools from '../pages/Tools'
 import Profile from '../pages/Profile'
@@ -54,15 +55,15 @@ const routes = createBrowserRouter([
               },
               {
                 path: '/ManagerWorkout/workout/:id',
-                element: <h1>Workout</h1>
+                element: <WorkoutForm />
               },
               {
                 path: '/ManagerWorkout/workout_day',
-                element: <h1>Dia de treino</h1>
+                element: <WorkoutDayForm />
               },
               {
                 path: '/ManagerWorkout/workout_day/:id',
-                element: <h1>Dia de treino</h1>
+                element: <WorkoutDayForm />
               },
               {
                 path: '/ManagerWorkout/day_exercise',

@@ -181,6 +181,8 @@ const ItemList = styled.div`
   flex-direction: column;
   gap: 10px;
   width: 100%;
+  padding: 0.3rem 0;
+  border-radius: 5px;
 
   div {
     display: flex;
@@ -198,6 +200,10 @@ const ItemList = styled.div`
       gap: 5px;
       padding: 0;
     }
+  }
+
+  &:hover {
+    background-color: var(--secondary);
   }
 `
 

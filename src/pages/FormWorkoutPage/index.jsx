@@ -23,9 +23,14 @@ const FormWorkoutPage = () => {
       <Container>
         <Header>
           <Button to="/workouts">Voltar</Button>
-          <h1>Criar Treino</h1>
-          <Button to="/workouts">Criar Semana de Treino</Button>
-          <Button to="/workouts">Criar Serie de Treino</Button>
+          <h1>Treinos</h1>
+          <Button to="/ManagerWorkout">Criar Treino</Button>
+          <Button to="/ManagerWorkout/workout_day">
+            Criar Semana de Treino
+          </Button>
+          <Button to="/ManagerWorkout/day_exercise">
+            Criar Serie de Treino
+          </Button>
         </Header>
 
         <Main>

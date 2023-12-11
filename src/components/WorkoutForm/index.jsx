@@ -1,5 +1,7 @@
 import { toast } from 'react-toastify'
 import { useContext, useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import swal from 'sweetalert'
 
 import { AuthContext } from '../../context/AuthContext'
 import Pagination from '../../components/Pagination'
@@ -20,8 +22,10 @@ import {
 } from '../../pages/FormWorkoutPage/styles'
 
 const WorkoutForm = () => {
+  const { id } = useParams()
   const { user } = useContext(AuthContext)
-  const { response, error, loading, execute } = useAxios(null)
+  const navigate = useNavigate()
+  const { response, error, execute } = useAxios(null)
   const { response: responseMyWorkout, execute: executeMyWorkout } =
     useAxios(null)
   const { response: responseDifficulty, execute: executeDifficulty } =
@@ -52,30 +56,43 @@ const WorkoutForm = () => {
   }, [])
 
   useEffect(() => {
+    if (id) {
+      execute({
+        url: `/manager/workout/${id}`,
+        method: 'get'
+      })
+    }
+
     if (submitted) {
       setSubmitted(false)
       execute({
-        url: '/manager/workout/',
-        method: 'post',
+        url: id ? `/manager/workout/${id}/` : '/manager/workout/',
+        method: id ? 'put' : 'post',
         data
       })
+
+      if (response?.status === 200 || id) {
+        toast.success('Treino atualizado com sucesso!')
+        setTimeout(() => {
+          navigate('/workouts')
+        }, 2000)
+      }
     }
-    if (response?.status === 201) {
+
+    if (response?.status === 201 || response?.status === 200) {
       executeMyWorkout({
         url: `/manager/workout/`,
         method: 'get'
       })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response?.status, submitted])
 
-  useEffect(() => {
-    if (loading) {
-      toast.info('Carregando...')
-    } else {
-      toast.dismiss()
+    if (error) {
+      toast.error(
+        'Ocorreu um erro ao processar a solicitação. Tente novamente.'
+      )
     }
-  }, [loading])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, response?.status, submitted, error])
 
   useEffect(() => {
     if (response?.data?.count === 0) {
@@ -98,8 +115,17 @@ const WorkoutForm = () => {
       toast.error('Ocorreu um erro interno no servidor. Tente novamente.')
     } else if (response?.status === 201) {
       toast.success('Treino criado com sucesso!')
+      setTimeout(() => {
+        navigate('/workouts')
+      }, 2000)
+    } else if (response?.status === 204) {
+      toast.success('Treino excluído com sucesso!')
     }
-  }, [error, response?.data?.count, response?.response, response?.status])
+
+    if (response?.data) {
+      setData(response.data)
+    }
+  }, [navigate, response])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -141,6 +167,39 @@ const WorkoutForm = () => {
     })
   }
 
+  const confirmDelete = id => {
+    swal({
+      title: 'Tem certeza que deseja excluir?',
+      text: 'Uma vez excluído, você não poderá recuperar esta ficha de treino!',
+      buttons: ['Cancelar', 'Excluir']
+    }).then(async willDelete => {
+      if (willDelete) {
+        try {
+          await execute({
+            url: `/manager/workout/${id}`,
+            method: 'delete'
+          })
+          handlePage(1)
+        } catch (error) {
+          toast.error(
+            'Ocorreu um erro ao excluir a ficha de treino. Tente novamente.'
+          )
+        }
+      }
+    })
+
+    const swalBackground = document.querySelector('.swal-modal')
+    const swalBtnBackground = document.querySelector('.swal-button--confirm')
+    const swalTitle = document.querySelector('.swal-title')
+    const swalText = document.querySelector('.swal-text')
+
+    swalBackground.style.backgroundColor = 'var(--primary)'
+    swalBackground.style.boxShadow = '0px 0px 10px 0px var(--quaternary)'
+    swalBtnBackground.style.backgroundColor = 'var(--btn-red)'
+    swalTitle.style.color = 'var(--quaternary)'
+    swalText.style.color = 'var(--quaternary)'
+  }
+
   return (
     <>
       <WrapperList>
@@ -151,14 +210,33 @@ const WorkoutForm = () => {
           {responseMyWorkout?.data?.results?.map(
             workout =>
               user.user_id === workout.user && (
-                <ItemList key={workout.id}>
+                <ItemList
+                  key={workout.id}
+                  style={{
+                    backgroundColor:
+                      id != workout.id ? '' : 'var(--btn-selected)'
+                  }}
+                >
                   <div>
                     <h2>{workout.name}</h2>
                     <div>
-                      <Button to={`/ManagerWorkout/workout/${workout.id}`}>
+                      <Button
+                        to={`/ManagerWorkout/workout/${workout.id}`}
+                        style={{
+                          border:
+                            id != workout.id
+                              ? ''
+                              : 'solid 1px var(--quaternary)'
+                        }}
+                      >
                         Editar
                       </Button>
-                      <Button className="btn-danger">Excluir</Button>
+                      <Button
+                        className="btn-danger"
+                        onClick={() => confirmDelete(workout.id)}
+                      >
+                        Excluir
+                      </Button>
                     </div>
                   </div>
                 </ItemList>
@@ -175,7 +253,7 @@ const WorkoutForm = () => {
 
       <WrapperForm>
         <Header>
-          <h1>Criar Treino</h1>
+          <h1> {id ? 'Editar Treino' : 'Criar Treino'}</h1>
         </Header>
         <Form onSubmit={handleSubmit}>
           <WrapperInput>
@@ -209,7 +287,7 @@ const WorkoutForm = () => {
               <input
                 type="checkbox"
                 name="public"
-                value={data.public}
+                checked={data.public}
                 onChange={handleInputChange}
               />
             </div>
@@ -218,7 +296,7 @@ const WorkoutForm = () => {
               <input
                 type="checkbox"
                 name="default"
-                value={data.default}
+                checked={data.default}
                 onChange={handleInputChange}
               />
             </div>
@@ -240,7 +318,9 @@ const WorkoutForm = () => {
               ))}
             </Select>
           </WrapperInput>
-          <BtnSubmit type="submit">Criar Treino</BtnSubmit>
+          <BtnSubmit type="submit">
+            {id ? 'Atualizar Treino' : 'Criar Treino'}
+          </BtnSubmit>
         </Form>
       </WrapperForm>
     </>
