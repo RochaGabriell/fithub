@@ -141,6 +141,7 @@ const Workouts = () => {
     e.preventDefault()
     setDifficulty(e.target.difficulty.value)
     setVisibility(e.target.visibility.value)
+    console.log(e.target.visibility.value)
 
     await execute({
       url: `/manager/workout?${
@@ -149,7 +150,7 @@ const Workouts = () => {
           : ''
       }${
         e.target.visibility.value !== ''
-          ? `&public=${e.target.difficulty.value}`
+          ? `&public=${e.target.visibility.value}`
           : ''
       }`,
       method: 'get'
