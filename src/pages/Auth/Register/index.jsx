@@ -50,6 +50,7 @@ const Register = () => {
         'Ocorreu um erro ao processar a solicitação. Tente novamente.'
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authTokens, submitted, error])
 
   useEffect(() => {
@@ -79,6 +80,7 @@ const Register = () => {
         navigate('/login')
       }, 2000)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response])
 
   const handleSubmit = e => {

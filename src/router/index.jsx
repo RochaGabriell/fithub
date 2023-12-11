@@ -6,6 +6,9 @@ import Register from '../pages/Auth/Register'
 // import Home from '../pages/Home'
 import Workouts from '../pages/Workouts'
 import Exercises from '../pages/Exercises'
+
+import FormWorkout from '../pages/FormWorkout'
+
 // import Tools from '../pages/Tools'
 import Profile from '../pages/Profile'
 
@@ -41,6 +44,10 @@ const routes = createBrowserRouter([
             element: <Workouts />
           },
           {
+            path: '/workouts/form',
+            element: <FormWorkout />
+          },
+          {
             path: '/exercises',
             element: <Exercises />
           },
@@ -55,7 +62,7 @@ const routes = createBrowserRouter([
           {
             path: '/measurements',
             element: <Measurements />,
-            children: [ 
+            children: [
               {
                 path: '/measurements',
                 element: <MyMeasurements />
