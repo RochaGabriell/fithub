@@ -175,7 +175,7 @@ const Workouts = () => {
       <Container $openModal={openModal || openModalWorkoutDay}>
         <Header>
           <h1>Fichas de treino</h1>
-          <Button to="/workouts/form">Criar ficha de treino</Button>
+          <Button to="/ManagerWorkout/">Gerenciar fichas</Button>
 
           <FormGroup onSubmit={handleFilter}>
             <Select name="visibility" id="visibility" defaultValue="">

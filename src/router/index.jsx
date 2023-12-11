@@ -7,7 +7,8 @@ import Register from '../pages/Auth/Register'
 import Workouts from '../pages/Workouts'
 import Exercises from '../pages/Exercises'
 
-import FormWorkout from '../pages/FormWorkout'
+import FormWorkoutPage from '../pages/FormWorkoutPage'
+import WorkoutForm from '../components/WorkoutForm'
 
 // import Tools from '../pages/Tools'
 import Profile from '../pages/Profile'
@@ -44,8 +45,34 @@ const routes = createBrowserRouter([
             element: <Workouts />
           },
           {
-            path: '/workouts/form',
-            element: <FormWorkout />
+            path: '/ManagerWorkout',
+            element: <FormWorkoutPage />,
+            children: [
+              {
+                path: '/ManagerWorkout/',
+                element: <WorkoutForm />
+              },
+              {
+                path: '/ManagerWorkout/workout/:id',
+                element: <h1>Workout</h1>
+              },
+              {
+                path: '/ManagerWorkout/workout_day',
+                element: <h1>Dia de treino</h1>
+              },
+              {
+                path: '/ManagerWorkout/workout_day/:id',
+                element: <h1>Dia de treino</h1>
+              },
+              {
+                path: '/ManagerWorkout/day_exercise',
+                element: <h1>Dia de exercicio</h1>
+              },
+              {
+                path: '/ManagerWorkout/day_exercise/:id',
+                element: <h1>Dia de exercicio</h1>
+              }
+            ]
           },
           {
             path: '/exercises',
