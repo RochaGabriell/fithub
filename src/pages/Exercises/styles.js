@@ -156,6 +156,10 @@ const ExerciseName = styled.h3`
   padding-bottom: 0.3rem;
   border-bottom: 1px solid var(--primary);
 
+  @media screen and (max-width: 1024px) {
+    font-size: 1rem;
+  }
+
   @media screen and (max-width: 768px) {
     font-size: 0.7rem;
   }
