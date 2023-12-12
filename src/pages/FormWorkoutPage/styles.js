@@ -23,8 +23,13 @@ const Header = styled.header`
   padding: 1rem 0;
   gap: 10px;
 
+  &.HeaderDayExercise {
+    flex-direction: column;
+    height: auto;
+  }
+
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--tertiary);
   }
 
@@ -35,6 +40,15 @@ const Header = styled.header`
     gap: 10px;
     height: min-content;
     padding: 10px;
+  }
+`
+
+const WrapperSelect = styled.div`
+  display: flex;
+  gap: 10px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
   }
 `
 
@@ -111,6 +125,11 @@ const Button = styled(Link)`
   &:hover {
     background-color: var(--tertiary);
     color: var(--primary);
+  }
+
+  &.view {
+    width: 30px;
+    margin-left: 10px;
   }
 
   img {
@@ -220,6 +239,7 @@ const ItemList = styled.div`
 export {
   Container,
   Header,
+  WrapperSelect,
   Form,
   WrapperInput,
   WrapperInputCheck,

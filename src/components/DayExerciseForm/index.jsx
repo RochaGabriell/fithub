@@ -8,6 +8,7 @@ import useAxios from '../../hooks/useAxios'
 import View from '../../assets/view.svg'
 import {
   Header,
+  WrapperSelect,
   Form,
   WrapperInput,
   Button,
@@ -226,9 +227,9 @@ const DayExerciseForm = () => {
     <>
       <WrapperList>
         <div>
-          <Header style={{ flexDirection: 'column', height: 'auto' }}>
+          <Header className="HeaderDayExercise">
             <h1>Dias de Treino</h1>
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <WrapperSelect>
               <Select
                 name="workout"
                 id="workout"
@@ -263,7 +264,7 @@ const DayExerciseForm = () => {
                   </option>
                 )}
               </Select>
-            </div>
+            </WrapperSelect>
           </Header>
         </div>
 
@@ -381,10 +382,7 @@ const DayExerciseForm = () => {
               Exercício
               {data.exercise ? (
                 <Button
-                  style={{
-                    width: '30px',
-                    marginLeft: '10px'
-                  }}
+                  className="view"
                   onClick={() => handleExercise(data.exercise)}
                 >
                   <img src={View} alt="Visualizar" />
