@@ -20,6 +20,8 @@ const Header = styled.header`
   margin-bottom: 0.7rem;
   border-radius: 5px;
   border: 1px solid var(--tertiary);
+  padding: 1rem 0;
+  gap: 10px;
 
   h1 {
     font-size: 1.5rem;
@@ -110,6 +112,11 @@ const Button = styled(Link)`
     background-color: var(--tertiary);
     color: var(--primary);
   }
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
 `
 
 const BtnSubmit = styled.button`
@@ -149,6 +156,9 @@ const WrapperForm = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 50%;
+
+  opacity: ${({ $openModal }) => ($openModal ? '0.5' : '1')};
+  pointer-events: ${({ $openModal }) => ($openModal ? 'none' : 'auto')};
 
   @media screen and (max-width: 768px) {
     width: 100%;

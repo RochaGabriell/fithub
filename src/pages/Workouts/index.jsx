@@ -103,7 +103,6 @@ const Workouts = () => {
   }
 
   const handleExercise = async id => {
-    console.log(id)
     await executeExerciseId({
       url: `/exercise/exercise/${id}`,
       method: 'get'
@@ -141,7 +140,6 @@ const Workouts = () => {
     e.preventDefault()
     setDifficulty(e.target.difficulty.value)
     setVisibility(e.target.visibility.value)
-    console.log(e.target.visibility.value)
 
     await execute({
       url: `/manager/workout?${

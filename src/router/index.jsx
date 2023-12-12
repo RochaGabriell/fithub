@@ -10,6 +10,7 @@ import Exercises from '../pages/Exercises'
 import FormWorkoutPage from '../pages/FormWorkoutPage'
 import WorkoutForm from '../components/WorkoutForm'
 import WorkoutDayForm from '../components/WorkoutDayForm'
+import DayExerciseForm from '../components/DayExerciseForm'
 
 // import Tools from '../pages/Tools'
 import Profile from '../pages/Profile'
@@ -67,11 +68,11 @@ const routes = createBrowserRouter([
               },
               {
                 path: '/ManagerWorkout/day_exercise',
-                element: <h1>Dia de exercicio</h1>
+                element: <DayExerciseForm />
               },
               {
                 path: '/ManagerWorkout/day_exercise/:id',
-                element: <h1>Dia de exercicio</h1>
+                element: <DayExerciseForm />
               }
             ]
           },
