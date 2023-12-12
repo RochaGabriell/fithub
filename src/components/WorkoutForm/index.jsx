@@ -71,10 +71,11 @@ const WorkoutForm = () => {
         data
       })
 
-      if (response?.status === 200 || id) {
+      if (response?.status === 200 && id) {
         toast.success('Treino atualizado com sucesso!')
         setTimeout(() => {
-          navigate('/workouts')
+          navigate('/ManagerWorkout')
+          window.location.reload()
         }, 2000)
       }
     }
@@ -110,16 +111,20 @@ const WorkoutForm = () => {
     } else if (response?.response?.status === 401) {
       toast.error('Você não tem permissão para realizar esta ação.')
     } else if (response?.response?.status === 404) {
-      toast.error('Medida não encontrada.')
+      toast.error('Ficha de treino não encontrada.')
     } else if (response?.response?.status === 500) {
       toast.error('Ocorreu um erro interno no servidor. Tente novamente.')
     } else if (response?.status === 201) {
-      toast.success('Treino criado com sucesso!')
+      toast.success('Ficha de treino criado com sucesso!')
       setTimeout(() => {
-        navigate('/workouts')
+        window.location.reload()
       }, 2000)
     } else if (response?.status === 204) {
-      toast.success('Treino excluído com sucesso!')
+      toast.success('Ficha de treino excluído com sucesso!')
+      setTimeout(() => {
+        navigate('/ManagerWorkout')
+        window.location.reload()
+      }, 2000)
     }
 
     if (response?.data) {
