@@ -49,7 +49,7 @@ const WorkoutForm = () => {
       method: 'get'
     })
     executeMyWorkout({
-      url: `/manager/workout/`,
+      url: `/manager/workout/my`,
       method: 'get'
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,7 +82,7 @@ const WorkoutForm = () => {
 
     if (response?.status === 201 || response?.status === 200) {
       executeMyWorkout({
-        url: `/manager/workout/`,
+        url: `/manager/workout/my`,
         method: 'get'
       })
     }
@@ -212,41 +212,35 @@ const WorkoutForm = () => {
           <h1>Meus Treinos</h1>
         </Header>
         <MainList>
-          {responseMyWorkout?.data?.results?.map(
-            workout =>
-              user.user_id === workout.user && (
-                <ItemList
-                  key={workout.id}
-                  style={{
-                    backgroundColor:
-                      id != workout.id ? '' : 'var(--btn-selected)'
-                  }}
-                >
-                  <div>
-                    <h2>{workout.name}</h2>
-                    <div>
-                      <Button
-                        to={`/ManagerWorkout/workout/${workout.id}`}
-                        style={{
-                          border:
-                            id != workout.id
-                              ? ''
-                              : 'solid 1px var(--quaternary)'
-                        }}
-                      >
-                        Editar
-                      </Button>
-                      <Button
-                        className="btn-danger"
-                        onClick={() => confirmDelete(workout.id)}
-                      >
-                        Excluir
-                      </Button>
-                    </div>
-                  </div>
-                </ItemList>
-              )
-          )}
+          {responseMyWorkout?.data?.results?.map(workout => (
+            <ItemList
+              key={workout.id}
+              style={{
+                backgroundColor: id != workout.id ? '' : 'var(--btn-selected)'
+              }}
+            >
+              <div>
+                <h2>{workout.name}</h2>
+                <div>
+                  <Button
+                    to={`/ManagerWorkout/workout/${workout.id}`}
+                    style={{
+                      border:
+                        id != workout.id ? '' : 'solid 1px var(--quaternary)'
+                    }}
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    className="btn-danger"
+                    onClick={() => confirmDelete(workout.id)}
+                  >
+                    Excluir
+                  </Button>
+                </div>
+              </div>
+            </ItemList>
+          ))}
         </MainList>
 
         <Pagination

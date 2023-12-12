@@ -45,7 +45,7 @@ const WorkoutDayForm = () => {
 
   useEffect(() => {
     executeMyWorkout({
-      url: `/manager/workout/`,
+      url: `/manager/workout/my/`,
       method: 'get'
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
