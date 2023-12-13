@@ -52,8 +52,6 @@ A missão do FitHub é alinhar-se aos princípios dos Objetivos de Desenvolvimen
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir problemas, sugerir melhorias ou enviar pull requests.
 
-Vamos juntos construir um mundo mais saudável com o FitHub!
-
 ---
 
 _Este projeto faz parte do meu trabalho integrador de faculdade, reforçando meu compromisso com a saúde e bem-estar, inspirado pelos Objetivos de Desenvolvimento Sustentável (ODS) da ONU._
