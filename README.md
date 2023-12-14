@@ -6,6 +6,8 @@
 
 Bem-vindo ao FitHub, seu companheiro definitivo na jornada em direção à saúde e bem-estar. Este projeto frontend, desenvolvido como parte do meu trabalho integrador de faculdade, utiliza tecnologias modernas como Vite e React para aprimorar a qualidade de vida por meio de recursos inovadores e personalizáveis.
 
+| Confira o **[Back-End](https://github.com/RochaGabriell/fithub-api)** do sistema.
+
 ## Recursos Especiais 🚀
 
 - **Acompanhamento de Medidas:** Registre seu progresso visualmente e acompanhe suas conquistas em direção às metas de saúde.
