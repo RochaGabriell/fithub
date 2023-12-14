@@ -11,7 +11,7 @@ const FlowiseChat = ({ isopen }) => {
     <>
       {!user || (isopen && window.innerWidth < 768) ? null : (
         <BubbleChat
-          chatflowid="bdea5f37-b6ed-4ef6-bb87-800dc1f10849"
+          chatflowid="7b5b6d0a-be47-443f-a67e-dd8ff7210696"
           apiHost="https://rochagabriell-chatfit.hf.space"
           theme={{
             button: {

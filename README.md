@@ -8,6 +8,14 @@ Bem-vindo ao FitHub, seu companheiro definitivo na jornada em direção à saúd
 
 | Confira o **[Back-End](https://github.com/RochaGabriell/fithub-api)** do sistema.
 
+<details>
+  <summary style="font-size: 1.5rem; font-weight: bold;">Telas do Sistema</summary>
+  <img alt="" src="">
+  <img alt="" src="">
+  <img alt="" src="">
+  <img alt="" src="">
+</details>
+
 ## Recursos Especiais 🚀
 
 - **Acompanhamento de Medidas:** Registre seu progresso visualmente e acompanhe suas conquistas em direção às metas de saúde.

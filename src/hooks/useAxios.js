@@ -13,9 +13,6 @@ function useAxios(initialAxiosParams = null) {
     try {
       setLoading(true)
       const res = await api.request(params)
-      if (res?.status === 401 && res?.statusText === 'Unauthorized') {
-        window.location.reload()
-      }
       setResponse(res)
     } catch (error) {
       setError(error)

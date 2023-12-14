@@ -210,6 +210,7 @@ const MarkdownWrapper = styled.div`
   h1 {
     font-size: 24px;
     margin-bottom: 15 px;
+    color: var(--secondary);
   }
 
   h2,
@@ -219,6 +220,7 @@ const MarkdownWrapper = styled.div`
   h6 {
     font-size: 20px;
     margin-bottom: 8px;
+    color: var(--secondary);
   }
 
   p {
